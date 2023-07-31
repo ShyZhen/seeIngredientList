@@ -1,0 +1,26 @@
+const env = {
+    appName: '干饭组',
+
+    // 是否开启debug
+    debug: true,
+
+    version: 'Version 1.0.0',
+
+    noticeKey: 'ganfanzu_collect_key_2021',
+
+    subkey: '',
+
+    // API 地址
+    apiBaseUrl: 'https://api.ganfanzu.com',
+
+    // token存储键名
+    tokenKey: 'GANFANZU-TOKEN-KEY',
+
+    // 绑定状态
+    bindingKey: 'GANFANZU-BINDING-KEY',
+
+    // 前端存储过期时间 （单位天）
+    tokenExpire: 7,
+}
+
+export default env
