@@ -17,9 +17,8 @@ Vue.prototype.$toBack = toBack
 Vue.prototype.$toHome = toHome
 Vue.prototype.$reLunchBack = reLunchBack
 
-// 兼容H5
-//Vue.prototype.$systemInfoSync = uni.getSystemInfoSync()
-//Vue.prototype.$menuButtonRect = uni.getMenuButtonBoundingClientRect()
+Vue.prototype.$systemInfoSync = uni.getSystemInfoSync()
+Vue.prototype.$menuButtonRect = uni.getMenuButtonBoundingClientRect()
 
 App.mpType = 'app'
 
