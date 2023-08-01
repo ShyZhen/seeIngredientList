@@ -288,7 +288,7 @@
 				this.$loading('线路规划中...')
 				let plugin = requirePlugin('routePlan');
 				let key = this.subkey;
-				let referer = Config.appName;
+				let referer = Config.lbsAppName;
 				let endPoint = JSON.stringify({
 					'name': to.title,
 					'latitude': to.latitude,

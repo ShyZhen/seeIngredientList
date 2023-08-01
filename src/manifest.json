@@ -1,5 +1,5 @@
 {
-    "name" : "配料我知道",
+    "name" : "配料百科",
     "appid" : "",
     "description" : "扫一扫，安全配料我知道",
     "versionName" : "1.0.0",
@@ -59,6 +59,10 @@
             "routePlan": {
                 "version": "1.0.17",
                 "provider": "wx50b5593e81dd937a"
+            },
+            "chooseLocation": {
+                "version": "1.0.10",
+                "provider": "wx76a9a06e5b4e693e"
             }
         }
     },

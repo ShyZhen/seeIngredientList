@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+// import './uni.promisify.adaptor'
 import store from './store'
 import { toast, loading, toLogin, toBack, toHome, reLunchBack } from './utils/global.js'
 

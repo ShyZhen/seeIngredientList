@@ -8,6 +8,8 @@ const env = {
 
     noticeKey: 'ganfanzu_collect_key_2021',
 
+    // 腾讯位置服务
+    lbsAppName: '',
     subkey: '',
 
     // API 地址
