@@ -40,8 +40,8 @@
 				</view>
 			</view>
 			<view class="hello" :style="{opacity:helloOpacity}">
-				<p>今天不吃外卖</p>
-				<p>我们改善生活</p>
+				<p>附近美食查询</p>
+				<p>智能路线推荐</p>
 			</view>
 		</view>
 	</view>

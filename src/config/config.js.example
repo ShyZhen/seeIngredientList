@@ -1,28 +1,39 @@
 const env = {
-    appName: '干饭组',
+    platformId: '',
+
+    appName: '配料百科
+    ',
 
     // 是否开启debug
     debug: true,
 
-    version: 'Version 1.0.0',
+    version: 'Version 1.0.1',
 
-    noticeKey: 'ganfanzu_collect_key_2021',
+    noticeKey: 'sil_collect_key_2021',
 
     // 腾讯位置服务
     lbsAppName: '',
     subkey: '',
 
+    // 优惠券领取通知 1891
+    subscribe: 'FwV-',
+
+
     // API 地址
-    apiBaseUrl: 'https://api.ganfanzu.com',
+    apiBaseUrl: 'https://api.xxx.com',
 
     // token存储键名
-    tokenKey: 'GANFANZU-TOKEN-KEY',
+    tokenKey: 'SIL-TOKEN-KEY',
 
     // 绑定状态
-    bindingKey: 'GANFANZU-BINDING-KEY',
+    bindingKey: 'SIL-BINDING-KEY',
 
     // 前端存储过期时间 （单位天）
-    tokenExpire: 7,
+    tokenExpire: 180,
+
+    // baidu OCR 文字识别
+    apiKey: '',
+    secretKey: '',
 }
 
 export default env
