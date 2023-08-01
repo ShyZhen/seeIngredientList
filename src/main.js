@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import App from './App'
-import './uni.promisify.adaptor'
 import store from './store'
 import { toast, loading, toLogin, toBack, toHome, reLunchBack } from './utils/global.js'
 
@@ -17,13 +16,14 @@ Vue.prototype.$toBack = toBack
 Vue.prototype.$toHome = toHome
 Vue.prototype.$reLunchBack = reLunchBack
 
+// 兼容H5
 Vue.prototype.$systemInfoSync = uni.getSystemInfoSync()
 Vue.prototype.$menuButtonRect = uni.getMenuButtonBoundingClientRect()
 
 App.mpType = 'app'
 
 const app = new Vue({
-  store,
-  ...App
+	store,
+	...App
 })
 app.$mount()

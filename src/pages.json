@@ -6,6 +6,12 @@
 			"navigationBarTitleText": "我要干饭"
 		}
 	},{
+		"path": "pages/find/find",
+		"style" : {
+			"navigationStyle": "custom",
+			"navigationBarTitleText": "改善生活"
+		}
+	},{
 		"path": "pages/about/about",
 		"style" : {
 			"navigationStyle": "custom",
@@ -45,63 +51,67 @@
 		}
 	}
 	,{
-			"path" : "pages/article/push",
-			"style" : {
-				"navigationBarTitleText": "说点啥呢",
-				"enablePullDownRefresh": false
-			}
+		"path" : "pages/article/push",
+		"style" : {
+			"navigationBarTitleText": "说点啥呢",
+			"enablePullDownRefresh": false
 		}
+	}
 	,{
-			"path" : "pages/mine/fans",
-			"style" : {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},{
-			"path" : "pages/mine/list",
-			"style" : {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},{
-			"path" : "pages/mine/report",
-			"style" : {
-				"navigationBarTitleText": "问题与反馈",
-				"enablePullDownRefresh": false
-			}
-		},{
-			"path" : "pages/about/agreement",
-			"style" : {
-				"navigationStyle": "custom",
-				"navigationBarTitleText": "用户协议",
-				"enablePullDownRefresh": false
-			}
+		"path" : "pages/mine/fans",
+		"style" : {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
 		}
-	],
+	},{
+		"path" : "pages/mine/list",
+		"style" : {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+	},{
+		"path" : "pages/mine/report",
+		"style" : {
+			"navigationBarTitleText": "问题与反馈",
+			"enablePullDownRefresh": false
+		}
+	},{
+		"path" : "pages/about/agreement",
+		"style" : {
+			"navigationStyle": "custom",
+			"navigationBarTitleText": "用户协议",
+			"enablePullDownRefresh": false
+		}
+	}
+    ],
 	"tabBar": {
 		"color": "#333333",
 		"selectedColor": "#F46845",
 		"backgroundColor": "#FCFCFD",
 		"list": [
 			{
-				"pagePath": "pages/index/index",
-				"iconPath": "static/icon/jiaoyin.png",
-				"selectedIconPath": "static/icon/jiaoyin_b.png",
-				"text": "日记"
-			}
-		,
-			{
-				"pagePath": "pages/article/article",
-				"iconPath": "static/icon/jiaoyin.png",
-				"selectedIconPath": "static/icon/jiaoyin_b.png",
-				"text": "日记"
-			}
+			"pagePath": "pages/index/index",
+			"text": "干饭",
+			"iconPath": "static/icon/eat.png",
+			"selectedIconPath": "static/icon/eat_b.png"
+		},{
+			"pagePath": "pages/find/find",
+			"iconPath": "static/icon/find.png",
+			"selectedIconPath": "static/icon/find_b.png",
+			"text": "发现"
+		}
 		,{
-				"pagePath": "pages/mine/mine",
-				"iconPath": "static/icon/me.png",
-				"selectedIconPath": "static/icon/me_b.png",
-				"text": "我"
-			}
+		    "pagePath": "pages/article/article",
+			"iconPath": "static/icon/jiaoyin.png",
+		    "selectedIconPath": "static/icon/jiaoyin_b.png",
+		    "text": "日记"
+		}
+		,{
+			"pagePath": "pages/mine/mine",
+			"iconPath": "static/icon/me.png",
+			"selectedIconPath": "static/icon/me_b.png",
+			"text": "我"
+		}
 		]
 	},
 	"globalStyle": {

@@ -2,6 +2,7 @@
 node_modules/
 unpackage/
 dist/
+src/config/config.js
 
 # local env files
 .env.local
