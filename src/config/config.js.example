@@ -1,7 +1,7 @@
 const env = {
     platformId: '',
 
-    appName: '配料百科
+    appName: '配料Wiki
     ',
 
     // 是否开启debug

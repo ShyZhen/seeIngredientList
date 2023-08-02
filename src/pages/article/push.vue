@@ -129,7 +129,7 @@ export default {
     },
     submitSave() {
       if (!this.hasLogin) {
-        this.$toast('需要登录呢，放心，内容小埋帮你留着')
+        this.$toast('需要登录呢，放心，内容咱帮你留着')
         setTimeout(() => {
           this.saveLoading = false
           this.$toLogin()

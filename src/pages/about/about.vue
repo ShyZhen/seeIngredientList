@@ -16,7 +16,7 @@
           </view>
         </view>
         <view class="title">
-          <p>干饭组</p>
+          <p>配料Wiki</p>
           <p>{{ version }}</p>
         </view>
       </view>

@@ -50,20 +50,20 @@
 					<image src="/static/icon/youjiantou.png"></image>
 				</view>
 			</view>
-			<view class="cell" @tap="goShop">
-				<view class="left-icon comm-center">
-					<image src="/static/icon/shop_b.png"></image>
-				</view>
-				<view class="txt">优惠券查询</view>
-				<view class="right-icon comm-center">
-					<image src="/static/icon/youjiantou.png"></image>
-				</view>
-			</view>
+<!--			<view class="cell" @tap="goShop">-->
+<!--				<view class="left-icon comm-center">-->
+<!--					<image src="/static/icon/shop_b.png"></image>-->
+<!--				</view>-->
+<!--				<view class="txt">优惠券查询</view>-->
+<!--				<view class="right-icon comm-center">-->
+<!--					<image src="/static/icon/youjiantou.png"></image>-->
+<!--				</view>-->
+<!--			</view>-->
 			<view class="cell" @tap="report">
 				<view class="left-icon comm-center">
 					<image src="/static/icon/report.png"></image>
 				</view>
-				<view class="txt">向小埋反馈</view>
+				<view class="txt">反馈</view>
 				<view class="right-icon comm-center">
 					<image src="/static/icon/youjiantou.png"></image>
 				</view>
@@ -72,7 +72,7 @@
 				<view class="left-icon comm-center">
 					<image src="/static/icon/about_b.png"></image>
 				</view>
-				<view class="txt">关于干饭组</view>
+				<view class="txt">关于</view>
 				<view class="right-icon comm-center">
 					<image src="/static/icon/youjiantou.png"></image>
 				</view>

@@ -115,7 +115,7 @@
 		]
 	},
 	"globalStyle": {
-		"navigationBarTitleText": "干饭组",
+		"navigationBarTitleText": "配料Wiki",
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F8F8F8",
