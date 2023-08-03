@@ -3,15 +3,23 @@
 		"path": "pages/index/index",
 		"style" : {
 			"navigationStyle": "custom",
-			"navigationBarTitleText": "我要干饭"
+			"navigationBarTitleText": "配料Wiki"
 		}
 	},{
-		"path": "pages/find/find",
+		"path": "pages/index/wiki",
 		"style" : {
 			"navigationStyle": "custom",
-			"navigationBarTitleText": "改善生活"
+			"navigationBarTitleText": "配料大全"
 		}
-	},{
+	}
+//	,{
+//		"path": "pages/find/find",
+//		"style" : {
+//			"navigationStyle": "custom",
+//			"navigationBarTitleText": "改善生活"
+//		}
+//	}
+	,{
 		"path": "pages/about/about",
 		"style" : {
 			"navigationStyle": "custom",
@@ -34,13 +42,13 @@
 	},{
 		"path" : "pages/article/article",
 		"style" : {
-			"navigationBarTitleText": "干饭天空",
+			"navigationBarTitleText": "交流广场",
 			"enablePullDownRefresh": false
 		}
 	},{
 		"path" : "pages/article/details",
 		"style" : {
-			"navigationBarTitleText": "日记详情",
+			"navigationBarTitleText": "详情",
 			"enablePullDownRefresh": false
 		}
 	},{
@@ -91,20 +99,26 @@
 		"list": [
 			{
 			"pagePath": "pages/index/index",
-			"text": "干饭",
-			"iconPath": "static/icon/eat.png",
-			"selectedIconPath": "static/icon/eat_b.png"
-		},{
-			"pagePath": "pages/find/find",
-			"iconPath": "static/icon/find.png",
-			"selectedIconPath": "static/icon/find_b.png",
-			"text": "发现"
-		}
+			"text": "配料",
+			"iconPath": "static/icon/ocr.png",
+			"selectedIconPath": "static/icon/ocr_b.png"
+		}, {
+				"pagePath": "pages/index/wiki",
+				"text": "Wiki",
+				"iconPath": "static/icon/wiki.png",
+				"selectedIconPath": "static/icon/wiki_b.png"
+			}
+//		,{
+//			"pagePath": "pages/find/find",
+//			"iconPath": "static/icon/find.png",
+//			"selectedIconPath": "static/icon/find_b.png",
+//			"text": "发现"
+//		}
 		,{
 		    "pagePath": "pages/article/article",
 			"iconPath": "static/icon/jiaoyin.png",
 		    "selectedIconPath": "static/icon/jiaoyin_b.png",
-		    "text": "日记"
+		    "text": "交流"
 		}
 		,{
 			"pagePath": "pages/mine/mine",

@@ -52,14 +52,14 @@
             }
         },
         "requiredPrivateInfos": [
-            "chooseLocation",
-            "getLocation"
+            "chooseLocation"
+//            "getLocation"
         ],
         "plugins": {
-            "routePlan": {
-                "version": "1.0.17",
-                "provider": "wx50b5593e81dd937a"
-            }
+//            "routePlan": {
+//                "version": "1.0.17",
+//                "provider": "wx50b5593e81dd937a"
+//            }
         },
         "lazyCodeLoading": "requiredComponents"
     },
