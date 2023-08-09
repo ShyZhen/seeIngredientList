@@ -20,8 +20,8 @@
       <view>
         <button @tap="picToTxt">请选择图片</button>
       </view>
-      <view v-for="(item, index) in wordsArr" key="index" >
-        <view>{{item.words}}</view>
+      <view v-for="(item, index) in wordsArr" :key="index" >
+        <view @tap.stop="getDetail(item)">{{item.words}}</view>
       </view>
     </view>
   </view>
@@ -31,6 +31,7 @@
 import aTip from "@/components/a_tip/aTip";
 import { getShareObj } from "@/utils/share.js";
 import Config from "../../config/config";
+import {getWikiDetail} from "@/apis/wiki";
 
 export default {
   data() {
@@ -38,7 +39,14 @@ export default {
       baiduTokenUrl: 'https://aip.baidubce.com/oauth/2.0/token',
       baiduOcrUrl: 'https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic',
       pageOpacity: 0,
-      wordsArr: [],
+      wordsArr: [
+        {words: '盐'},
+        {words: '食用盐'},
+        {words: '植物油'},
+        {words: '苯甲酸钠'}
+      ],
+      baiduBaikeUrl: 'https://baike.baidu.com/item/',
+      huagongBaikeUrl: 'https://www.chembk.com/cn/chem/'
     };
   },
   components: {
@@ -103,16 +111,11 @@ export default {
             'content-type': 'application/x-www-form-urlencoded'
           },
           success: function (res, resolve) {
-
-            //将 res.data.words_result数组中的内容加入到words中
-            that.wordsArr = res.data.words_result
-
-            console.log('识别后：' + res.data.words_result)
-            that.$loading(false)
+            // 处理ocr数据，进行正则匹配截取
+            that.handleOcrData(res.data.words_result)
           },
           fail: function (res, reject) {
-            console.log('getImgInfo()：', res.data);
-            that.$loading(false)
+            console.log('fail getImgInfo()：', res.data);
           },
           complete: function () {
             that.$loading(false)
@@ -145,6 +148,33 @@ export default {
           }
         })
       })
+    },
+
+    // 将 res.data.words_result数组中的内容加入到words中
+    handleOcrData: function(words) {
+      this.wordsArr = words
+    },
+
+    // 获取分析后的详情，没有就直接百度
+    getDetail: function(item) {
+      let that = this
+      // 跳转到第三方无法实现，只能曲线救国，通过后端处理
+      // uni.navigateTo({
+      //   url: '/pages/index/link?webUrl='+that.baiduBaikeUrl+item.words
+      // })
+      //
+      // uni.navigateTo({
+      //   url: '/pages/index/link?webUrl='+that.huagongBaikeUrl+item.words
+      // })
+
+      let data = {
+        title: item.words,
+      }
+      // 多个结果遍历取出，默认展示第一个，下面的点击展开，如果没有数据，则调用后端请求baidu接口
+      getWikiDetail(data).then(res => {
+        console.log(res)
+      })
+
     }
 
   }

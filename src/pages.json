@@ -11,6 +11,12 @@
 			"navigationStyle": "custom",
 			"navigationBarTitleText": "配料大全"
 		}
+	},{
+		"path": "pages/index/link",
+		"style" : {
+			"navigationStyle": "custom",
+			"navigationBarTitleText": "webview"
+		}
 	}
 //	,{
 //		"path": "pages/find/find",
@@ -25,65 +31,67 @@
 			"navigationStyle": "custom",
 			"navigationBarTitleText": "关于我们"
 		}
-	},{
-		"path" : "pages/mine/mine",
-		"style" : {
-			"navigationStyle": "custom",
-			"navigationBarTitleText": "个人信息",
-			"enablePullDownRefresh": false
-		}
-	},{
-		"path" : "pages/login/login",
-		"style" : {
-			"navigationStyle": "custom",
-			"navigationBarTitleText": "登录",
-			"enablePullDownRefresh": false
-		}
-	},{
-		"path" : "pages/article/article",
-		"style" : {
-			"navigationBarTitleText": "交流广场",
-			"enablePullDownRefresh": false
-		}
-	},{
-		"path" : "pages/article/details",
-		"style" : {
-			"navigationBarTitleText": "详情",
-			"enablePullDownRefresh": false
-		}
-	},{
-		"path" : "pages/mine/other",
-		"style" : {
-			"navigationBarTitleText": "用户详情",
-			"enablePullDownRefresh": false
-		}
-	}
-	,{
-		"path" : "pages/article/push",
-		"style" : {
-			"navigationBarTitleText": "说点啥呢",
-			"enablePullDownRefresh": false
-		}
-	}
-	,{
-		"path" : "pages/mine/fans",
-		"style" : {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
-	},{
-		"path" : "pages/mine/list",
-		"style" : {
-			"navigationBarTitleText": "",
-			"enablePullDownRefresh": false
-		}
-	},{
-		"path" : "pages/mine/report",
-		"style" : {
-			"navigationBarTitleText": "问题与反馈",
-			"enablePullDownRefresh": false
-		}
-	},{
+	},
+//		{
+//		"path" : "pages/mine/mine",
+//		"style" : {
+//			"navigationStyle": "custom",
+//			"navigationBarTitleText": "个人信息",
+//			"enablePullDownRefresh": false
+//		}
+//	},{
+//		"path" : "pages/login/login",
+//		"style" : {
+//			"navigationStyle": "custom",
+//			"navigationBarTitleText": "登录",
+//			"enablePullDownRefresh": false
+//		}
+//	},{
+//		"path" : "pages/article/article",
+//		"style" : {
+//			"navigationBarTitleText": "交流广场",
+//			"enablePullDownRefresh": false
+//		}
+//	},{
+//		"path" : "pages/article/details",
+//		"style" : {
+//			"navigationBarTitleText": "详情",
+//			"enablePullDownRefresh": false
+//		}
+//	},{
+//		"path" : "pages/mine/other",
+//		"style" : {
+//			"navigationBarTitleText": "用户详情",
+//			"enablePullDownRefresh": false
+//		}
+//	}
+//	,{
+//		"path" : "pages/article/push",
+//		"style" : {
+//			"navigationBarTitleText": "说点啥呢",
+//			"enablePullDownRefresh": false
+//		}
+//	}
+//	,{
+//		"path" : "pages/mine/fans",
+//		"style" : {
+//			"navigationBarTitleText": "",
+//			"enablePullDownRefresh": false
+//		}
+//	},{
+//		"path" : "pages/mine/list",
+//		"style" : {
+//			"navigationBarTitleText": "",
+//			"enablePullDownRefresh": false
+//		}
+//	},{
+//		"path" : "pages/mine/report",
+//		"style" : {
+//			"navigationBarTitleText": "问题与反馈",
+//			"enablePullDownRefresh": false
+//		}
+//	},
+		{
 		"path" : "pages/about/agreement",
 		"style" : {
 			"navigationStyle": "custom",
@@ -114,18 +122,18 @@
 //			"selectedIconPath": "static/icon/find_b.png",
 //			"text": "发现"
 //		}
-		,{
-		    "pagePath": "pages/article/article",
-			"iconPath": "static/icon/jiaoyin.png",
-		    "selectedIconPath": "static/icon/jiaoyin_b.png",
-		    "text": "交流"
-		}
-		,{
-			"pagePath": "pages/mine/mine",
-			"iconPath": "static/icon/me.png",
-			"selectedIconPath": "static/icon/me_b.png",
-			"text": "我"
-		}
+//		,{
+//		    "pagePath": "pages/article/article",
+//			"iconPath": "static/icon/jiaoyin.png",
+//		    "selectedIconPath": "static/icon/jiaoyin_b.png",
+//		    "text": "交流"
+//		}
+//		,{
+//			"pagePath": "pages/mine/mine",
+//			"iconPath": "static/icon/me.png",
+//			"selectedIconPath": "static/icon/me_b.png",
+//			"text": "我"
+//		}
 		]
 	},
 	"globalStyle": {
