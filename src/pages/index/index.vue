@@ -17,6 +17,16 @@
 
     <!--  内容  -->
     <view style="margin-top:100px">
+
+      <!--  下拉框  -->
+      <view>
+        <uni-data-select
+            v-model="value"
+            :localdata="range"
+            @change="change"
+        ></uni-data-select>
+      </view>
+
       <view>
         <button @tap="picToTxt">请选择图片</button>
       </view>
@@ -36,8 +46,20 @@ import {getWikiDetail} from "@/apis/wiki";
 export default {
   data() {
     return {
-      baiduTokenUrl: 'https://aip.baidubce.com/oauth/2.0/token',
-      baiduOcrUrl: 'https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic',
+      value: 'rest/2.0/ocr/v1/general_basic',
+      range: [
+        { value: 'rest/2.0/ocr/v1/general_basic', text: "通用文字识别" },    // 1000次/月
+        { value: 'file/2.0/mt/pictrans/v1', text: "图片翻译" },    // 总量1万次
+        // { value: 'rest/2.0/ocr/v1/accurate_basic', text: "通用文字识别(高精度)" },    // 1000次/月
+        // { value: 'rest/2.0/ocr/v1/handwriting', text: "手写文字识别" },    // 500次/月
+        { value: 'rest/2.0/ocr/v1/idcard', text: "身份证" },    // 1000次/月
+        { value: 'rest/2.0/ocr/v1/bankcard', text: "银行卡" },    // 1000次/月
+        { value: 'rest/2.0/ocr/v1/business_license', text: "营业执照" },    // 1000次/月
+      ],
+
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
       pageOpacity: 0,
       wordsArr: [
         {words: '盐'},
@@ -45,8 +67,6 @@ export default {
         {words: '植物油'},
         {words: '苯甲酸钠'}
       ],
-      baiduBaikeUrl: 'https://baike.baidu.com/item/',
-      huagongBaikeUrl: 'https://www.chembk.com/cn/chem/'
     };
   },
   components: {
@@ -65,6 +85,23 @@ export default {
     return getShareObj()
   },
   methods: {
+    // 下拉框
+    change(e) {
+      console.log("e:", e);
+      console.log("value:", this.value);
+
+      // 机器翻译的时候header不一样，参数也大不同
+      if (this.value === 'file/2.0/mt/pictrans/v1') {
+        this.header = {
+          'content-type': 'multipart/form-data'
+        }
+      } else {
+        this.header = {
+          'content-type': 'application/x-www-form-urlencoded'
+        }
+      }
+    },
+
     picToTxt() {
       const that = this
       uni.chooseImage({
@@ -97,19 +134,21 @@ export default {
       that.getBaiduToken().then(res => {
         //获取token
         const token = res.data.access_token
-        console.log('token', token)
+        console.log('imageData', imageData)
 
-        const detectUrl = that.baiduOcrUrl+'?access_token='+token
+        const detectUrl = Config.baiduApiBaseUrl + this.value + '?access_token='+token
         uni.request({
           url: detectUrl,
           data: {
-            image: imageData
+            image: imageData,
+            id_card_side: 'front',
+            from: 'auto',
+            to: 'zh',
+            v: 3,
           },
           method: 'POST',
           dataType: 'json',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
+          header: that.header,
           success: function (res, resolve) {
             // 处理ocr数据，进行正则匹配截取
             that.handleOcrData(res.data.words_result)
@@ -129,7 +168,7 @@ export default {
       return new Promise(resolve => {
         let apiKey = Config.apiKey
         let secretKey = Config.secretKey
-        let tokenUrl = that.baiduTokenUrl+`?grant_type=client_credentials&client_id=${apiKey}&client_secret=${secretKey}`
+        let tokenUrl = Config.baiduTokenUrl+`?grant_type=client_credentials&client_id=${apiKey}&client_secret=${secretKey}`
 
         uni.request({
           url: tokenUrl,
@@ -143,7 +182,7 @@ export default {
             return resolve(res)
           },
           fail: function (res) {
-            console.log("BaiduToken获取失败", res);
+            console.log("BaiduToken()获取失败", res);
             return resolve(res)
           }
         })
@@ -151,22 +190,13 @@ export default {
     },
 
     // 将 res.data.words_result数组中的内容加入到words中
-    handleOcrData: function(words) {
-      this.wordsArr = words
+    handleOcrData: function(data) {
+      this.wordsArr = data
     },
 
     // 获取分析后的详情，没有就直接百度
     getDetail: function(item) {
       let that = this
-      // 跳转到第三方无法实现，只能曲线救国，通过后端处理
-      // uni.navigateTo({
-      //   url: '/pages/index/link?webUrl='+that.baiduBaikeUrl+item.words
-      // })
-      //
-      // uni.navigateTo({
-      //   url: '/pages/index/link?webUrl='+that.huagongBaikeUrl+item.words
-      // })
-
       let data = {
         title: item.words,
       }
@@ -174,7 +204,6 @@ export default {
       getWikiDetail(data).then(res => {
         console.log(res)
       })
-
     }
 
   }
