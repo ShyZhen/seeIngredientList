@@ -113,48 +113,84 @@ export default {
           //获取图片的临时路径
           const tempFilePath = res.tempFilePaths[0]
 
-          //根据官方的要求  用base64字符编码获取图片的内容
-          uni.getFileSystemManager().readFile({
-            filePath: tempFilePath,
-            encoding: 'base64',
-            success: function (res) {
-              //调用方法
-              that.getImgInfo(res.data)
-            },
-          })
+          if (that.value === 'file/2.0/mt/pictrans/v1') {
+            // 机器翻译的只能通过formdata方式传参
+            that.getImgInfoMultipart(tempFilePath)
+          } else {
+            // 用base64字符编码获取图片的内容
+            that.getImgInfoBase64(tempFilePath)
+
+          }
         },
       })
     },
 
     //根据图片的内容调用API获取图片文字
-    getImgInfo: function (imageData) {
+    getImgInfoBase64: function (imageData) {
       this.$loading('识别中...');
-
       let that = this
-      that.getBaiduToken().then(res => {
-        //获取token
-        const token = res.data.access_token
-        console.log('imageData', imageData)
 
-        const detectUrl = Config.baiduApiBaseUrl + this.value + '?access_token='+token
-        uni.request({
+      //获取token
+      that.getBaiduToken().then(res => {
+        const token = res.data.access_token
+
+        // 需要用base64编码的图片文件
+        uni.getFileSystemManager().readFile({
+          filePath: imageData,
+          encoding: 'base64',
+          success: function (res) {
+            const detectUrl = Config.baiduApiBaseUrl + that.value + '?access_token=' + token
+            uni.request({
+              url: detectUrl,
+              data: {
+                image: res.data,
+                id_card_side: 'front',  // 身份证识别特有参数
+              },
+              method: 'POST',
+              dataType: 'json',
+              header: that.header,
+              success: function (res, resolve) {
+                // 处理ocr数据，进行正则匹配截取
+                that.handleOcrData(res.data.words_result)
+              },
+              fail: function (res, reject) {
+                console.log('fail getImgInfo()：', res.data);
+              },
+              complete: function () {
+                that.$loading(false)
+              }
+            })
+          },
+        })
+      })
+    },
+
+    //根据图片的内容调用API获取图片文字
+    getImgInfoMultipart: function (imageData) {
+      this.$loading('识别中...');
+      let that = this
+
+      // 获取token
+      that.getBaiduToken().then(res => {
+        const token = res.data.access_token
+        const detectUrl = Config.baiduApiBaseUrl + that.value + '?access_token=' + token
+
+        uni.uploadFile({
           url: detectUrl,
-          data: {
-            image: imageData,
-            id_card_side: 'front',
+          filePath: imageData,
+          name: 'image',
+          formData: {
             from: 'auto',
             to: 'zh',
             v: 3,
           },
-          method: 'POST',
-          dataType: 'json',
-          header: that.header,
+          //header: that.header,
           success: function (res, resolve) {
             // 处理ocr数据，进行正则匹配截取
             that.handleOcrData(res.data.words_result)
           },
           fail: function (res, reject) {
-            console.log('fail getImgInfo()：', res.data);
+            console.log('fail getImgInfoMultipart()：', res.data);
           },
           complete: function () {
             that.$loading(false)
@@ -162,6 +198,7 @@ export default {
         })
       })
     },
+
     // 获取百度access_token
     getBaiduToken: function () {
       let that = this
