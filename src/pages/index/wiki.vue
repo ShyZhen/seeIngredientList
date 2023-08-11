@@ -20,9 +20,48 @@
       <view>
         <button @tap="picToTxt">请选择图片</button>
       </view>
-      <view v-for="(item, index) in wordsArr" :key="index" >
-        <view>{{item.words}}</view>
+
+      <view v-if="imagePlant[0].name">
+        <view>
+          {{imagePlant[0].name}}
+        </view>
+        <view v-if="imagePlant[0].baike_info">
+          <view>
+            {{imagePlant[0].baike_info.description}}
+          </view>
+          <view>
+            <img src="{{imagePlant[0].baike_info.image_url}}" alt=""/>
+          </view>
+        </view>
       </view>
+
+      <view v-if="imageIngredient[0].name">
+        <view>
+          {{imageIngredient[0].name}}
+        </view>
+      </view>
+
+      <view v-if="imageCurrency.currencyCode">
+        <view v-if="imageCurrency.hasdetail">货币代码：{{imageCurrency.currencyCode}}</view>
+        <view>货币名称：{{imageCurrency.currencyName}}</view>
+        <view v-if="imageCurrency.hasdetail">货币面值：{{imageCurrency.currencyDenomination}}</view>
+        <view v-if="imageCurrency.hasdetail">货币年份：{{imageCurrency.year}}</view>
+      </view>
+
+      <view v-if="imageGeneral[0].keyword">
+        <view>
+          {{imageGeneral[0].keyword}}
+        </view>
+        <view v-if="imageGeneral[0].baike_info.description">
+          <view>
+            {{imageGeneral[0].baike_info.description}}
+          </view>
+          <view>
+            <img src="{{imageGeneral[0].baike_info.image_url}}" alt=""/>
+          </view>
+        </view>
+      </view>
+
     </view>
   </view>
 </template>
@@ -37,18 +76,21 @@ export default {
       value: 'rest/2.0/image-classify/v1/plant',
       range: [
         { value: 'rest/2.0/image-classify/v1/plant', text: "花草植物" },    // 总量1万次
-        { value: 'rest/2.0/image-classify/v1/animal', text: "凶萌动物" },    // 总量1万次
+        { value: 'rest/2.0/image-classify/v1/animal', text: "呆萌猛兽" },    // 总量1万次
         { value: 'rest/2.0/image-classify/v1/classify/ingredient', text: "水果蔬菜" },    // 总量1000次赠送
         { value: 'rest/2.0/image-classify/v1/currency', text: "货币钱币" },    // 总量500次赠送
-        { value: 'rest/2.0/image-classify/v2/logo', text: "品牌Logo" },    // 无
         { value: 'rest/2.0/image-classify/v2/advanced_general', text: "其他识别" },    // 通用物体和场景识别
+        // { value: 'rest/2.0/image-classify/v2/logo', text: "品牌Logo" },    // 无
       ],
 
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       pageOpacity: 0,
-      wordsArr: [],
+      imagePlant: [],
+      imageIngredient: [],
+      imageCurrency: [],
+      imageGeneral: [],
     };
   },
   components: {
@@ -118,7 +160,7 @@ export default {
           success: function (res, resolve) {
             // 处理ocr数据，进行正则匹配截取
             console.log('成功：', res)
-            that.handleOcrData(res.data.words_result)
+            that.handleOcrData(res.data)
           },
           fail: function (res, reject) {
             console.log('fail getImgInfo()：', res.data);
@@ -158,7 +200,23 @@ export default {
 
     // 将 res.data.words_result数组中的内容加入到words中
     handleOcrData: function(data) {
-      this.wordsArr = data
+      switch (this.value) {
+        case 'rest/2.0/image-classify/v1/plant':  // 花草植物
+          this.imagePlant = data.result
+          break
+        case 'rest/2.0/image-classify/v1/animal':  // 动物
+          this.imagePlant = data.result
+          break
+        case 'rest/2.0/image-classify/v1/classify/ingredient':  // 水果蔬菜
+          this.imageIngredient = data.result
+          break
+        case 'rest/2.0/image-classify/v1/currency':  // 货币钱币
+          this.imageCurrency = data.result
+          break
+        case 'rest/2.0/image-classify/v2/advanced_general':  // 通用
+          this.imageGeneral = data.result
+          break
+      }
     },
 
   }

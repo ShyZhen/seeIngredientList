@@ -30,9 +30,39 @@
       <view>
         <button @tap="picToTxt">请选择图片</button>
       </view>
-      <view v-for="(item, index) in wordsArr" :key="index" >
-        <view @tap.stop="getDetail(item)">{{item.words}}</view>
+
+      <view v-if="wordsArr.length">
+        <view v-for="(item, index) in wordsArr" :key="index" >
+          <view @tap.stop="getDetail(item)">4{{item.words}}</view>
+        </view>
       </view>
+
+      <view v-if="wordTrans.length">
+        <view v-for="(item, index) in wordTrans" :key="index" >
+          <view>{{item.src}}:{{item.dst}}</view>
+        </view>
+      </view>
+
+      <view v-if="wordIDCard">
+        <view v-for="(item, index) in wordIDCard" :key="index" >
+          <view>{{index}} : {{item.words}}</view>
+        </view>
+      </view>
+
+      <view v-if="wordBank.bank_card_number">
+        <view>卡号：{{wordBank.bank_card_number}}</view>
+        <view>类型：{{wordBank.bank_card_type}}</view>
+        <view>开户银行：{{wordBank.bank_name}}</view>
+        <view>开户人：{{wordBank.holder_name}}</view>
+        <view>有效期：{{wordBank.valid_date}}</view>
+      </view>
+
+      <view v-if="wordBusiness">
+        <view v-for="(item, index) in wordBusiness" :key="index" >
+          <view>{{index}} : {{item.words}}</view>
+        </view>
+      </view>
+
     </view>
   </view>
 </template>
@@ -61,12 +91,17 @@ export default {
         'content-type': 'application/x-www-form-urlencoded'
       },
       pageOpacity: 0,
-      wordsArr: [
-        {words: '盐'},
-        {words: '食用盐'},
-        {words: '植物油'},
-        {words: '苯甲酸钠'}
-      ],
+      wordsArr: [],
+      wordIDCard: {},
+      wordBank: {
+        bank_card_number: '',
+        bank_card_type: '',
+        bank_name: '',
+        holder_name: '',
+        valid_date: '',
+      },
+      wordBusiness: {},
+      wordTrans: [],
     };
   },
   components: {
@@ -151,7 +186,7 @@ export default {
               header: that.header,
               success: function (res, resolve) {
                 // 处理ocr数据，进行正则匹配截取
-                that.handleOcrData(res.data.words_result)
+                that.handleOcrData(res.data)
               },
               fail: function (res, reject) {
                 console.log('fail getImgInfo()：', res.data);
@@ -187,7 +222,7 @@ export default {
           //header: that.header,
           success: function (res, resolve) {
             // 处理ocr数据，进行正则匹配截取
-            that.handleOcrData(res.data.words_result)
+            that.handleOcrData(res.data)
           },
           fail: function (res, reject) {
             console.log('fail getImgInfoMultipart()：', res.data);
@@ -228,7 +263,23 @@ export default {
 
     // 将 res.data.words_result数组中的内容加入到words中
     handleOcrData: function(data) {
-      this.wordsArr = data
+      switch (this.value) {
+        case 'rest/2.0/ocr/v1/general_basic':  // 通用
+          this.wordsArr = data.words_result
+          break
+        case 'file/2.0/mt/pictrans/v1':  // 翻译
+          this.wordTrans = JSON.parse(data).data.content
+          break
+        case 'rest/2.0/ocr/v1/idcard':  // 身份证
+          this.wordIDCard = data.words_result
+          break
+        case 'rest/2.0/ocr/v1/bankcard':  // 银行卡
+            this.wordBank = data.result
+          break
+        case 'rest/2.0/ocr/v1/business_license':  // 营业执照
+          this.wordBusiness = data.words_result
+          break
+      }
     },
 
     // 获取分析后的详情，没有就直接百度
@@ -237,7 +288,6 @@ export default {
       let data = {
         title: item.words,
       }
-      // 多个结果遍历取出，默认展示第一个，下面的点击展开，如果没有数据，则调用后端请求baidu接口
       getWikiDetail(data).then(res => {
         console.log(res)
       })
