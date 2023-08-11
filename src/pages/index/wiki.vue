@@ -30,7 +30,7 @@
             {{imagePlant[0].baike_info.description}}
           </view>
           <view>
-            <img src="{{imagePlant[0].baike_info.image_url}}" alt=""/>
+            <img :src="imagePlant[0].baike_info.image_url" alt=""/>
           </view>
         </view>
       </view>
@@ -57,7 +57,7 @@
             {{imageGeneral[0].baike_info.description}}
           </view>
           <view>
-            <img src="{{imageGeneral[0].baike_info.image_url}}" alt=""/>
+            <img :src="imageGeneral[0].baike_info.image_url" alt=""/>
           </view>
         </view>
       </view>
