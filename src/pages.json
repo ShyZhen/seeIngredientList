@@ -12,10 +12,9 @@
 			"navigationBarTitleText": "配料大全"
 		}
 	},{
-		"path": "pages/index/link",
+		"path": "pages/index/crop",
 		"style" : {
-			"navigationStyle": "custom",
-			"navigationBarTitleText": "webview"
+			"navigationStyle": "custom"
 		}
 	}
 //	,{

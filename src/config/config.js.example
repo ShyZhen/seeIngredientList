@@ -29,6 +29,9 @@ const env = {
     // 前端存储过期时间 （单位天）
     tokenExpire: 180,
 
+    // 是否开启图像安全检查
+    imageCheckFlag: false,
+
     // 百度获取token、ocr文字识别、图像识别接口地址
     baiduTokenUrl: 'https://aip.baidubce.com/oauth/2.0/token',
     baiduApiBaseUrl: 'https://aip.baidubce.com/',

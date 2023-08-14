@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 // import './uni.promisify.adaptor'
 import store from './store'
-import { toast, loading, toLogin, toBack, toHome, reLunchBack } from './utils/global.js'
+import { toast, loading, toLogin, toBack, toHome, reLunchBack, randomString, imageCheck } from './utils/global.js'
 
 // 字体图标库
 import './common/iconfont/iconfont.css'
@@ -16,6 +16,9 @@ Vue.prototype.$toLogin = toLogin
 Vue.prototype.$toBack = toBack
 Vue.prototype.$toHome = toHome
 Vue.prototype.$reLunchBack = reLunchBack
+
+Vue.prototype.$randomString = randomString
+Vue.prototype.$imageCheck = imageCheck
 
 // 兼容H5
 Vue.prototype.$systemInfoSync = uni.getSystemInfoSync()

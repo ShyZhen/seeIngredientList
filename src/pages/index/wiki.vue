@@ -75,11 +75,11 @@ export default {
     return {
       value: 'rest/2.0/image-classify/v1/plant',
       range: [
-        { value: 'rest/2.0/image-classify/v1/plant', text: "花草植物" },    // 总量1万次
+        { value: 'rest/2.0/image-classify/v1/plant', text: "拍照识花" },    // 总量1万次
         { value: 'rest/2.0/image-classify/v1/animal', text: "呆萌猛兽" },    // 总量1万次
         { value: 'rest/2.0/image-classify/v1/classify/ingredient', text: "水果蔬菜" },    // 总量1000次赠送
         { value: 'rest/2.0/image-classify/v1/currency', text: "货币钱币" },    // 总量500次赠送
-        { value: 'rest/2.0/image-classify/v2/advanced_general', text: "其他识别" },    // 通用物体和场景识别
+        { value: 'rest/2.0/image-classify/v2/advanced_general', text: "其他识别" },    // 通用物体和场景识别 总量1万次
         // { value: 'rest/2.0/image-classify/v2/logo', text: "品牌Logo" },    // 无
       ],
 
