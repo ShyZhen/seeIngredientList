@@ -122,19 +122,18 @@ export default {
   methods: {
     // 下拉框
     change(e) {
-      console.log("e:", e);
-      console.log("value:", this.value);
+      // console.log("e:", e);
 
       // 机器翻译的时候header不一样，参数也大不同
-      if (this.value === 'file/2.0/mt/pictrans/v1') {
-        this.header = {
-          'content-type': 'multipart/form-data'
-        }
-      } else {
-        this.header = {
-          'content-type': 'application/x-www-form-urlencoded'
-        }
-      }
+      // if (this.value === 'file/2.0/mt/pictrans/v1') {
+      //   this.header = {
+      //     'content-type': 'multipart/form-data'
+      //   }
+      // } else {
+      //   this.header = {
+      //     'content-type': 'application/x-www-form-urlencoded'
+      //   }
+      // }
     },
 
     picToTxt() {
@@ -218,6 +217,7 @@ export default {
             from: 'auto',
             to: 'zh',
             v: 3,
+            paste: 0,
           },
           //header: that.header,
           success: function (res, resolve) {
