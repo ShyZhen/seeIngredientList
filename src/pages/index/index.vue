@@ -70,8 +70,9 @@
 <script>
 import aTip from "@/components/a_tip/aTip";
 import { getShareObj } from "@/utils/share.js";
-import Config from "../../config/config";
+import Config from "@/config/config";
 import {getWikiDetail} from "@/apis/wiki";
+import {getBaiduToken} from "@/utils/baidu";
 
 export default {
   data() {
@@ -87,9 +88,6 @@ export default {
         { value: 'rest/2.0/ocr/v1/business_license', text: "营业执照" },    // 1000次/月
       ],
 
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
       pageOpacity: 0,
       wordsArr: [],
       wordIDCard: {},
@@ -123,22 +121,17 @@ export default {
     // 下拉框
     change(e) {
       // console.log("e:", e);
-
-      // 机器翻译的时候header不一样，参数也大不同
-      // if (this.value === 'file/2.0/mt/pictrans/v1') {
-      //   this.header = {
-      //     'content-type': 'multipart/form-data'
-      //   }
-      // } else {
-      //   this.header = {
-      //     'content-type': 'application/x-www-form-urlencoded'
-      //   }
-      // }
     },
 
     picToTxt() {
       const that = this
-      uni.chooseImage({
+      if (!that.value) {
+        that.$toast('请先选择识别类型')
+        return false
+      }
+
+
+        uni.chooseImage({
         count: 1,
         sizeType: ['compressed'],
         sourceType: ['album', 'camera'],
@@ -160,18 +153,17 @@ export default {
       })
     },
 
-    //根据图片的内容调用API获取图片文字
-    getImgInfoBase64: function (imageData) {
+    // 根据图片的内容调用API获取图片文字
+    getImgInfoBase64: function (tempFilePath) {
       this.$loading('识别中...');
       let that = this
 
-      //获取token
-      that.$getBaiduToken().then(res => {
+      // 获取token
+      getBaiduToken().then(res => {
         const token = res.data.access_token
-
-        // 需要用base64编码的图片文件
+        // 根据官方的要求  用base64字符编码获取图片的内容
         uni.getFileSystemManager().readFile({
-          filePath: imageData,
+          filePath: tempFilePath,
           encoding: 'base64',
           success: function (res) {
             const detectUrl = Config.baiduApiBaseUrl + that.value + '?access_token=' + token
@@ -179,13 +171,17 @@ export default {
               url: detectUrl,
               data: {
                 image: res.data,
-                id_card_side: 'front',  // 身份证识别特有参数
+                id_card_side: 'front', // 文字识别中身份证识别特有参数
+                baike_num: 1           // 图片识别中返回百科信息
               },
               method: 'POST',
               dataType: 'json',
-              header: that.header,
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
               success: function (res, resolve) {
                 // 处理ocr数据，进行正则匹配截取
+                console.log('成功：', res)
                 that.handleOcrData(res.data)
               },
               fail: function (res, reject) {
@@ -206,7 +202,7 @@ export default {
       let that = this
 
       // 获取token
-      that.$getBaiduToken().then(res => {
+      getBaiduToken().then(res => {
         const token = res.data.access_token
         const detectUrl = Config.baiduApiBaseUrl + that.value + '?access_token=' + token
 
@@ -220,7 +216,6 @@ export default {
             v: 3,
             paste: 0,
           },
-          //header: that.header,
           success: function (res, resolve) {
             // 处理ocr数据，进行正则匹配截取
             that.handleOcrData(res.data)

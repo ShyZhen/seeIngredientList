@@ -67,8 +67,9 @@
 </template>
 
 <script>
+import {getBaiduToken} from "@/utils/baidu";
 import { getShareObj } from "@/utils/share.js";
-import Config from "../../config/config";
+import Config from "@/config/config";
 
 export default {
   data() {
@@ -83,9 +84,6 @@ export default {
         // { value: 'rest/2.0/image-classify/v2/logo', text: "品牌Logo" },    // 无
       ],
 
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
       pageOpacity: 0,
       imagePlant: [],
       imageIngredient: [],
@@ -115,6 +113,11 @@ export default {
 
     picToTxt() {
       const that = this
+      if (!that.value) {
+        that.$toast('请先选择识别类型')
+        return false
+      }
+
       uni.chooseImage({
         count: 1,
         sizeType: ['compressed'],
@@ -123,51 +126,50 @@ export default {
 
           //获取图片的临时路径
           const tempFilePath = res.tempFilePaths[0]
-
-          //根据官方的要求  用base64字符编码获取图片的内容
-          uni.getFileSystemManager().readFile({
-            filePath: tempFilePath,
-            encoding: 'base64',
-            success: function (res) {
-              //调用方法
-              that.getImgInfo(res.data)
-            },
-          })
+          that.$imageCheck(tempFilePath, that.getImgInfoBase64);
         },
       })
     },
 
-    //根据图片的内容调用API获取图片文字
-    getImgInfo: function (imageData) {
+    // 根据图片的内容调用API获取图片文字
+    getImgInfoBase64: function (tempFilePath) {
       this.$loading('识别中...');
-
       let that = this
-      that.$getBaiduToken().then(res => {
-        //获取token
-        const token = res.data.access_token
-        console.log('token', token)
 
-        const detectUrl = Config.baiduApiBaseUrl + this.value + '?access_token='+token
-        uni.request({
-          url: detectUrl,
-          data: {
-            image: imageData,
-            baike_num: 1
+      // 获取token
+      getBaiduToken().then(res => {
+        const token = res.data.access_token
+        // 根据官方的要求  用base64字符编码获取图片的内容
+        uni.getFileSystemManager().readFile({
+          filePath: tempFilePath,
+          encoding: 'base64',
+          success: function (res) {
+            const detectUrl = Config.baiduApiBaseUrl + that.value + '?access_token=' + token
+            uni.request({
+              url: detectUrl,
+              data: {
+                image: res.data,
+                id_card_side: 'front', // 文字识别中身份证识别特有参数
+                baike_num: 1           // 图片识别中返回百科信息
+              },
+              method: 'POST',
+              dataType: 'json',
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              success: function (res, resolve) {
+                // 处理ocr数据，进行正则匹配截取
+                console.log('成功：', res)
+                that.handleOcrData(res.data)
+              },
+              fail: function (res, reject) {
+                console.log('fail getImgInfo()：', res.data);
+              },
+              complete: function () {
+                that.$loading(false)
+              }
+            })
           },
-          method: 'POST',
-          dataType: 'json',
-          header: that.header,
-          success: function (res, resolve) {
-            // 处理ocr数据，进行正则匹配截取
-            console.log('成功：', res)
-            that.handleOcrData(res.data)
-          },
-          fail: function (res, reject) {
-            console.log('fail getImgInfo()：', res.data);
-          },
-          complete: function () {
-            that.$loading(false)
-          }
         })
       })
     },
