@@ -21,6 +21,15 @@
         <button @tap="picToTxt">请选择图片</button>
       </view>
 
+      <!--   剪裁插件   -->
+      <gmy-img-cropper
+          ref="gmyImgCropper"
+          quality="1"
+          cropperType="free"
+          fileType="jpg"
+          @getImg="getCropImg"
+      ></gmy-img-cropper>
+
       <view v-if="imagePlant[0].name">
         <view>
           {{imagePlant[0].name}}
@@ -68,8 +77,9 @@
 
 <script>
 import {getBaiduToken} from "@/utils/baidu";
-import { getShareObj } from "@/utils/share.js";
+import {getShareObj} from "@/utils/share.js";
 import Config from "@/config/config";
+import gmyImgCropper from "@/components/gmy-img-cropper/gmy-img-cropper"
 
 export default {
   data() {
@@ -92,6 +102,7 @@ export default {
     };
   },
   components: {
+    gmyImgCropper,
   },
   onLoad(e) {
   },
@@ -126,9 +137,17 @@ export default {
 
           //获取图片的临时路径
           const tempFilePath = res.tempFilePaths[0]
-          that.$imageCheck(tempFilePath, that.getImgInfoBase64);
+          // that.$imageCheck(tempFilePath, that.getImgInfoBase64);
+          that.$imageCheck(tempFilePath, that.$refs.gmyImgCropper.chooseImageNew);
         },
       })
+    },
+
+    // 剪裁点击完成时，返回截取图片的临时路径
+    getCropImg: function(e){
+      console.log("父页面拿到了剪裁后的图片临时地址", e);
+      const that = this
+      that.getImgInfoBase64(e)
     },
 
     // 根据图片的内容调用API获取图片文字

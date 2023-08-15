@@ -31,9 +31,18 @@
         <button @tap="picToTxt">请选择图片</button>
       </view>
 
+      <!--   剪裁插件   -->
+      <gmy-img-cropper
+          ref="gmyImgCropper"
+          quality="1"
+          cropperType="free"
+          fileType="jpg"
+          @getImg="getCropImg"
+      ></gmy-img-cropper>
+
       <view v-if="wordsArr.length">
         <view v-for="(item, index) in wordsArr" :key="index" >
-          <view @tap.stop="getDetail(item)">4{{item.words}}</view>
+          <view @tap.stop="getDetail(item)">{{item.words}}</view>
         </view>
       </view>
 
@@ -73,6 +82,7 @@ import { getShareObj } from "@/utils/share.js";
 import Config from "@/config/config";
 import {getWikiDetail} from "@/apis/wiki";
 import {getBaiduToken} from "@/utils/baidu";
+import gmyImgCropper from "@/components/gmy-img-cropper/gmy-img-cropper"
 
 export default {
   data() {
@@ -104,6 +114,7 @@ export default {
   },
   components: {
     aTip,
+    gmyImgCropper,
   },
   onLoad(e) {
 
@@ -130,27 +141,31 @@ export default {
         return false
       }
 
+      //   没有剪裁功能的原有逻辑
+      uni.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
 
-        uni.chooseImage({
-        count: 1,
-        sizeType: ['compressed'],
-        sourceType: ['album', 'camera'],
-        success: (res) => {
+        //获取图片的临时路径,先进行安全检查,再剪裁
+        const tempFilePath = res.tempFilePaths[0]
+        that.$imageCheck(tempFilePath, that.$refs.gmyImgCropper.chooseImageNew);
+      },
+    })
+    },
 
-          //获取图片的临时路径
-          const tempFilePath = res.tempFilePaths[0]
+    // 剪裁点击完成时，返回截取图片的临时路径
+    getCropImg: function(e){
+      console.log("父页面拿到了剪裁后的图片临时地址", e);
+      const that = this
 
-          if (that.value === 'file/2.0/mt/pictrans/v1') {
-            // 机器翻译的只能通过formdata方式传参
-            // that.getImgInfoMultipart(tempFilePath)
-            that.$imageCheck(tempFilePath, that.getImgInfoMultipart);
-          } else {
-            // 用base64字符编码获取图片的内容
-            //that.getImgInfoBase64(tempFilePath)
-            that.$imageCheck(tempFilePath, that.getImgInfoBase64);
-          }
-        },
-      })
+      const tempFilePath = e
+      if (that.value === 'file/2.0/mt/pictrans/v1') {
+        that.getImgInfoMultipart(tempFilePath)
+      } else {
+        that.getImgInfoBase64(tempFilePath)
+      }
     },
 
     // 根据图片的内容调用API获取图片文字
