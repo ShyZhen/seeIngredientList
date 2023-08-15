@@ -1,4 +1,6 @@
 <script>
+import Config from "@/config/config"
+
 export default {
   onLaunch: function() {
     console.log('App Launch');
@@ -31,6 +33,27 @@ export default {
         showCancel: false
       })
     })
+
+    // 初始化云函数
+    if (!wx.cloud) {
+      uni.showToast({
+        title: '请使用 2.2.3 或以上的基础库以使用云能力',
+        icon: 'warn',
+
+        image: '',
+        duration: 0,
+        mask: true,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+    } else {
+      console.log('初始化cloud');
+      wx.cloud.init({
+        env: Config.cloudEnvId,
+        traceUser: true,
+      })
+    }
   },
   onShow: function() {
     console.log('App Show');

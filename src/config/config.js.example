@@ -8,7 +8,7 @@ const env = {
 
     version: 'Version 1.0.1',
 
-    noticeKey: 'sil_collect_key_2021',
+    noticeKey: 'sil_collect_key_2023',
 
     // 腾讯位置服务
     lbsAppName: '',
@@ -30,7 +30,9 @@ const env = {
     tokenExpire: 180,
 
     // 是否开启图像安全检查
-    imageCheckFlag: false,
+    imageCheckFlag: true,
+    // 云开发ID
+    cloudEnvId: 'cloud1-xxx',
 
     // 百度获取token、ocr文字识别、图像识别接口地址
     baiduTokenUrl: 'https://aip.baidubce.com/oauth/2.0/token',

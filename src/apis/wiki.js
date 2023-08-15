@@ -11,24 +11,6 @@ function getWikiDetail(data) {
     })
 }
 
-// 阿里动漫风接口
-function uniUploadImage(filePath, type) {
-    return new Promise((resolve, reject) => {
-        uni.uploadFile({
-            url: request.buildFullUrl('V1/alibaba/face/'+type),
-            filePath: filePath,
-            name: 'image',
-            header: request.buildHeader({}),
-            success: (uploadRes) => {
-                resolve(uploadRes)
-            },
-            fail: (failRes) => {
-                reject(failRes)
-            }
-        });
-    })
-}
-
 // 后端图片安全检查接口
 function imageSecCheck(filePath) {
     return new Promise((resolve, reject) => {
@@ -47,8 +29,6 @@ function imageSecCheck(filePath) {
     })
 }
 
-
-
 export {
-    getWikiDetail, uniUploadImage, imageSecCheck
+    getWikiDetail, imageSecCheck
 }

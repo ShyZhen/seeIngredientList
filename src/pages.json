@@ -11,11 +11,6 @@
 			"navigationStyle": "custom",
 			"navigationBarTitleText": "配料大全"
 		}
-	},{
-		"path": "pages/index/crop",
-		"style" : {
-			"navigationStyle": "custom"
-		}
 	}
 //	,{
 //		"path": "pages/find/find",

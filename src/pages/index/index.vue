@@ -149,10 +149,12 @@ export default {
 
           if (that.value === 'file/2.0/mt/pictrans/v1') {
             // 机器翻译的只能通过formdata方式传参
-            that.getImgInfoMultipart(tempFilePath)
+            // that.getImgInfoMultipart(tempFilePath)
+            that.$imageCheck(tempFilePath, that.getImgInfoMultipart);
           } else {
             // 用base64字符编码获取图片的内容
-            that.getImgInfoBase64(tempFilePath)
+            //that.getImgInfoBase64(tempFilePath)
+            that.$imageCheck(tempFilePath, that.getImgInfoBase64);
           }
         },
       })

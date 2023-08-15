@@ -129,7 +129,7 @@ function imageCheck(tempImagePath, callback) {
 
             // 生成随机文件名
             let ext = tempImagePath.substring(tempImagePath.lastIndexOf(".") + 1)
-            let randFileName = that.$randomString() + '.'+ext
+            let randFileName = randomString() + '.'+ext
 
             // 将图片上传至云存储空间
             wx.cloud.uploadFile({
@@ -157,6 +157,7 @@ function imageCheck(tempImagePath, callback) {
                                     confirmText: '朕知道了',
                                 });
                             } else {
+                                console.log('图片检测正常')
                                 //图片合规则进行进一步处理
                                 callback(tempImagePath);
                             }
@@ -175,7 +176,7 @@ function imageCheck(tempImagePath, callback) {
                             wx.cloud.deleteFile({
                                 fileList: [res.fileID],
                                 success: res => {
-                                    console.log("已删除")
+                                    console.log('云存储内图片已删除')
                                 },
                                 fail: console.error
                             })
@@ -208,7 +209,7 @@ function imageCheckBak(tempImagePath, callback) {
             imageSecCheck(tempFilePathCompressed).then(res => {
                 if (res.statusCode === 204) {
                     //图片合规则进行进一步处理
-                    console.log("图片检测正常")
+                    console.log('图片检测正常')
                     that.$loading(false)
                     callback(tempImagePath);
                 } else {
@@ -235,4 +236,4 @@ function imageCheckBak(tempImagePath, callback) {
     })
 }
 
-export { loading, toast, toLogin, toBack, toHome, reLunchBack, getBaiduToken, randomString, imageCheck }
+export { loading, toast, toLogin, toBack, toHome, reLunchBack, getBaiduToken, imageCheck }
