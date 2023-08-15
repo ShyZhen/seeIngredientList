@@ -112,10 +112,10 @@
 			</view>
 			<view class="cropper-config">
 				<view class="button-box">
-<!--					<button type="warn" @click="chooseImage">重选</button>-->
-					<button type="warn" @click="close">取消</button>
-					<button type="warn" @click="previewImg">预览</button>
-					<button type="warn" @click="finish">完成</button>
+          <!-- <button type="warn" @click="chooseImage">重选</button> -->
+          <view @click="close" hover-class="hover" style="width: 20%;"><i class="avatar-icon iconfont icontuichu" style="color: #FF5722;font-size: xx-large"></i></view>
+					<view @click="previewImg" hover-class="hover" style="width: 20%;"><i class="avatar-icon iconfont iconyulan2" style="color: #FF5722;font-size: xx-large"></i></view>
+					<view @click="finish" hover-class="hover" style="width: 20%;"><i class="avatar-icon iconfont iconqueding" style="color: #FF5722;font-size: xx-large"></i></view>
 				</view>
 			</view>
 			<canvas
@@ -1035,5 +1035,9 @@ export default {
 .uni-cropper-viewer image {
 	position: absolute;
 	z-index: 2;
+}
+
+.hover {
+  background: #f1f1f1;
 }
 </style>
