@@ -59,14 +59,15 @@ export default {
     // 选择图片
     ChooseImage() {
       let that = this
-      uni.chooseImage({
-        count: 2, //默认9
+      uni.chooseMedia({
+        count: 2,
+        mediaType: ['image'],
         sizeType: ['compressed'],
         sourceType: ['album', 'camera'],
         success: (res) => {
           if (res.tempFilePaths.length) {
             that.$loading('压缩上传中...')
-            uniUploadImage(res.tempFilePaths[0]).then(res => {
+            uniUploadImage(res.tempFiles[0].tempFilePath).then(res => {
 
               // 此处无法依赖request中的错误处理
               if (res.statusCode !== 201) {

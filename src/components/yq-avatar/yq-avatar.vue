@@ -198,8 +198,9 @@
 					this.fSelecting = false;
 				}, 500);
 
-				uni.chooseImage({
+				uni.chooseMedia({
 					count: 1,
+          mediaType: ['image'],
 					sizeType: ['original', 'compressed'],
 					sourceType: ['album', 'camera'],
 					success: (r) => {
@@ -213,7 +214,7 @@
 						});
 						// #endif
 
-						let path = this.imgPath = r.tempFilePaths[0];
+						let path = this.imgPath = r.tempFiles[0].tempFilePath;
 						uni.getImageInfo({
 							src: path,
 							success: r => {

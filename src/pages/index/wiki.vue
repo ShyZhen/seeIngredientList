@@ -30,7 +30,7 @@
           @getImg="getCropImg"
       ></gmy-img-cropper>
 
-      <view v-if="imagePlant[0].name">
+      <view v-if="imagePlant.length">
         <view>
           {{imagePlant[0].name}}
         </view>
@@ -44,7 +44,7 @@
         </view>
       </view>
 
-      <view v-if="imageIngredient[0].name">
+      <view v-if="imageIngredient.length">
         <view>
           {{imageIngredient[0].name}}
         </view>
@@ -57,7 +57,7 @@
         <view v-if="imageCurrency.hasdetail">货币年份：{{imageCurrency.year}}</view>
       </view>
 
-      <view v-if="imageGeneral[0].keyword">
+      <view v-if="imageGeneral.length">
         <view>
           {{imageGeneral[0].keyword}}
         </view>
@@ -76,9 +76,8 @@
 </template>
 
 <script>
-import {getBaiduToken} from "@/utils/baidu";
+import {getBaiduToken, getImgInfoBase64} from "@/utils/baidu";
 import {getShareObj} from "@/utils/share.js";
-import Config from "@/config/config";
 import gmyImgCropper from "@/components/gmy-img-cropper/gmy-img-cropper"
 
 export default {
@@ -104,8 +103,7 @@ export default {
   components: {
     gmyImgCropper,
   },
-  onLoad(e) {
-  },
+  onLoad(e) {},
   onReady(e) {
     this.pageOpacity = 1
   },
@@ -118,8 +116,8 @@ export default {
   methods: {
     // 下拉框
     change(e) {
-      console.log("e:", e);
-      console.log("value:", this.value);
+      // console.log("e:", e);
+      // console.log("value:", this.value);
     },
 
     picToTxt() {
@@ -129,67 +127,28 @@ export default {
         return false
       }
 
-      uni.chooseImage({
+      uni.chooseMedia({
         count: 1,
+        mediaType: ['image'],
         sizeType: ['compressed'],
         sourceType: ['album', 'camera'],
         success: (res) => {
-
-          //获取图片的临时路径
-          const tempFilePath = res.tempFilePaths[0]
-          // that.$imageCheck(tempFilePath, that.getImgInfoBase64);
+          // 获取图片的临时路径,先进行安全检查,再剪裁
+          const tempFilePath = res.tempFiles[0].tempFilePath
+          // that.$imageCheck(tempFilePath, getImgInfoBase64);
           that.$imageCheck(tempFilePath, that.$refs.gmyImgCropper.chooseImageNew);
         },
       })
     },
 
-    // 剪裁点击完成时，返回截取图片的临时路径
-    getCropImg: function(e){
-      console.log("父页面拿到了剪裁后的图片临时地址", e);
+    // 剪裁完成，返回截取图片的临时路径
+    getCropImg: function(tempFilePath){
+      console.log("父页面拿到了剪裁后的图片临时地址", tempFilePath);
       const that = this
-      that.getImgInfoBase64(e)
-    },
 
-    // 根据图片的内容调用API获取图片文字
-    getImgInfoBase64: function (tempFilePath) {
-      this.$loading('识别中...');
-      let that = this
-
-      // 获取token
-      getBaiduToken().then(res => {
-        const token = res.data.access_token
-        // 根据官方的要求  用base64字符编码获取图片的内容
-        uni.getFileSystemManager().readFile({
-          filePath: tempFilePath,
-          encoding: 'base64',
-          success: function (res) {
-            const detectUrl = Config.baiduApiBaseUrl + that.value + '?access_token=' + token
-            uni.request({
-              url: detectUrl,
-              data: {
-                image: res.data,
-                id_card_side: 'front', // 文字识别中身份证识别特有参数
-                baike_num: 1           // 图片识别中返回百科信息
-              },
-              method: 'POST',
-              dataType: 'json',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded'
-              },
-              success: function (res, resolve) {
-                // 处理ocr数据，进行正则匹配截取
-                console.log('成功：', res)
-                that.handleOcrData(res.data)
-              },
-              fail: function (res, reject) {
-                console.log('fail getImgInfo()：', res.data);
-              },
-              complete: function () {
-                that.$loading(false)
-              }
-            })
-          },
-        })
+      getImgInfoBase64(tempFilePath, that.value).then(res => {
+        console.log('回调res', res)
+        that.handleOcrData(res.data)
       })
     },
 

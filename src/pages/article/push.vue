@@ -73,18 +73,19 @@ export default {
     // 选择图片
     ChooseImage() {
       let that = this
-      uni.chooseImage({
+      uni.chooseMedia({
         count: 9, //默认9
+        mediaType: ['image'],
         sizeType: ['compressed'],
         sourceType: ['album', 'camera'],
         success: (fileRes) => {
-          if (fileRes.tempFilePaths.length) {
+          if (fileRes.tempFiles.length) {
             that.$loading('压缩上传中...')
 
             let counter = 0
-            fileRes.tempFilePaths.forEach(function(item) {
+            fileRes.tempFiles.forEach(function(item) {
 
-              uniUploadImage(item).then(res => {
+              uniUploadImage(item.tempFilePath).then(res => {
                 // 此处无法依赖request中的错误处理
                 if (res.statusCode !== 201) {
                   that.$toast(JSON.parse(res.data).message)
@@ -101,7 +102,7 @@ export default {
                 that.saveTemp()
 
                 counter++;
-                if (counter === fileRes.tempFilePaths.length) {
+                if (counter === fileRes.tempFiles.length) {
                   that.$loading(false)
                 }
               }).catch(err => {

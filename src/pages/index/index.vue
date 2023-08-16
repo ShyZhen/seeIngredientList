@@ -77,11 +77,10 @@
 </template>
 
 <script>
-import aTip from "@/components/a_tip/aTip";
-import { getShareObj } from "@/utils/share.js";
-import Config from "@/config/config";
-import {getWikiDetail} from "@/apis/wiki";
-import {getBaiduToken} from "@/utils/baidu";
+import aTip from "@/components/a_tip/aTip"
+import { getShareObj } from "@/utils/share.js"
+import {getWikiDetail} from "@/apis/wiki"
+import {getImgInfoBase64, getImgInfoMultipart} from "@/utils/baidu"
 import gmyImgCropper from "@/components/gmy-img-cropper/gmy-img-cropper"
 
 export default {
@@ -91,11 +90,11 @@ export default {
       range: [
         { value: 'rest/2.0/ocr/v1/general_basic', text: "通用文字识别" },    // 1000次/月
         { value: 'file/2.0/mt/pictrans/v1', text: "图片翻译" },    // 总量1万次
-        // { value: 'rest/2.0/ocr/v1/accurate_basic', text: "通用文字识别(高精度)" },    // 1000次/月
-        // { value: 'rest/2.0/ocr/v1/handwriting', text: "手写文字识别" },    // 500次/月
         { value: 'rest/2.0/ocr/v1/idcard', text: "身份证" },    // 1000次/月
         { value: 'rest/2.0/ocr/v1/bankcard', text: "银行卡" },    // 1000次/月
         { value: 'rest/2.0/ocr/v1/business_license', text: "营业执照" },    // 1000次/月
+        // { value: 'rest/2.0/ocr/v1/accurate_basic', text: "通用文字识别(高精度)" },    // 1000次/月
+        // { value: 'rest/2.0/ocr/v1/handwriting', text: "手写文字识别" },    // 500次/月
       ],
 
       pageOpacity: 0,
@@ -116,9 +115,7 @@ export default {
     aTip,
     gmyImgCropper,
   },
-  onLoad(e) {
-
-  },
+  onLoad(e) {},
   onReady(e) {
     this.pageOpacity = 1
   },
@@ -132,6 +129,7 @@ export default {
     // 下拉框
     change(e) {
       // console.log("e:", e);
+      // console.log("value:", this.value);
     },
 
     picToTxt() {
@@ -141,108 +139,35 @@ export default {
         return false
       }
 
-      //   没有剪裁功能的原有逻辑
-      uni.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: (res) => {
-
-        //获取图片的临时路径,先进行安全检查,再剪裁
-        const tempFilePath = res.tempFilePaths[0]
-        that.$imageCheck(tempFilePath, that.$refs.gmyImgCropper.chooseImageNew);
-      },
-    })
+      uni.chooseMedia({
+        count: 1,
+        mediaType: ['image'],
+        sizeType: ['compressed'],
+        sourceType: ['album', 'camera'],
+        success: (res) => {
+          // 获取图片的临时路径,先进行安全检查,再剪裁
+          const tempFilePath = res.tempFiles[0].tempFilePath
+          that.$imageCheck(tempFilePath, that.$refs.gmyImgCropper.chooseImageNew);
+        },
+      })
     },
 
-    // 剪裁点击完成时，返回截取图片的临时路径
-    getCropImg: function(e){
-      console.log("父页面拿到了剪裁后的图片临时地址", e);
+    // 剪裁完成，返回截取图片的临时路径
+    getCropImg: function(tempFilePath){
+      console.log("父页面拿到了剪裁后的图片临时地址", tempFilePath);
       const that = this
 
-      const tempFilePath = e
       if (that.value === 'file/2.0/mt/pictrans/v1') {
-        that.getImgInfoMultipart(tempFilePath)
+        getImgInfoMultipart(tempFilePath, that.value).then(res => {
+          console.log('回调res', res)
+          that.handleOcrData(res.data)
+        })
       } else {
-        that.getImgInfoBase64(tempFilePath)
+        getImgInfoBase64(tempFilePath, that.value).then(res => {
+          console.log('回调res', res)
+          that.handleOcrData(res.data)
+        })
       }
-    },
-
-    // 根据图片的内容调用API获取图片文字
-    getImgInfoBase64: function (tempFilePath) {
-      this.$loading('识别中...');
-      let that = this
-
-      // 获取token
-      getBaiduToken().then(res => {
-        const token = res.data.access_token
-        // 根据官方的要求  用base64字符编码获取图片的内容
-        uni.getFileSystemManager().readFile({
-          filePath: tempFilePath,
-          encoding: 'base64',
-          success: function (res) {
-            const detectUrl = Config.baiduApiBaseUrl + that.value + '?access_token=' + token
-            uni.request({
-              url: detectUrl,
-              data: {
-                image: res.data,
-                id_card_side: 'front', // 文字识别中身份证识别特有参数
-                baike_num: 1           // 图片识别中返回百科信息
-              },
-              method: 'POST',
-              dataType: 'json',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded'
-              },
-              success: function (res, resolve) {
-                // 处理ocr数据，进行正则匹配截取
-                console.log('成功：', res)
-                that.handleOcrData(res.data)
-              },
-              fail: function (res, reject) {
-                console.log('fail getImgInfo()：', res.data);
-              },
-              complete: function () {
-                that.$loading(false)
-              }
-            })
-          },
-        })
-      })
-    },
-
-    //根据图片的内容调用API获取图片文字
-    getImgInfoMultipart: function (imageData) {
-      this.$loading('识别中...');
-      let that = this
-
-      // 获取token
-      getBaiduToken().then(res => {
-        const token = res.data.access_token
-        const detectUrl = Config.baiduApiBaseUrl + that.value + '?access_token=' + token
-
-        uni.uploadFile({
-          url: detectUrl,
-          filePath: imageData,
-          name: 'image',
-          formData: {
-            from: 'auto',
-            to: 'zh',
-            v: 3,
-            paste: 0,
-          },
-          success: function (res, resolve) {
-            // 处理ocr数据，进行正则匹配截取
-            that.handleOcrData(res.data)
-          },
-          fail: function (res, reject) {
-            console.log('fail getImgInfoMultipart()：', res.data);
-          },
-          complete: function () {
-            that.$loading(false)
-          }
-        })
-      })
     },
 
     // 将 res.data.words_result数组中的内容加入到words中
@@ -258,7 +183,7 @@ export default {
           this.wordIDCard = data.words_result
           break
         case 'rest/2.0/ocr/v1/bankcard':  // 银行卡
-            this.wordBank = data.result
+          this.wordBank = data.result
           break
         case 'rest/2.0/ocr/v1/business_license':  // 营业执照
           this.wordBusiness = data.words_result
