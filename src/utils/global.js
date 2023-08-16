@@ -76,6 +76,17 @@ function toBack(pagesLength) {
     }
 }
 
+// 复制
+function copyThat(data) {
+    uni.setClipboardData({
+        data: data,
+        showToast: true,
+        success: function() {
+
+        }
+    })
+}
+
 function randomString(e) {
     e = e || 32;
     var t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",
@@ -210,4 +221,4 @@ function imageCheckBak(tempImagePath, callback) {
     })
 }
 
-export { loading, toast, toLogin, toBack, toHome, reLunchBack, imageCheck }
+export { loading, toast, toLogin, toBack, toHome, reLunchBack, copyThat, imageCheck }

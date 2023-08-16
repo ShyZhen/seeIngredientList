@@ -42,43 +42,44 @@
 
       <view v-if="wordsArr.length">
         <view v-for="(item, index) in wordsArr" :key="index" >
-          <view @tap.stop="getDetail(item)">{{item.words}}</view>
+          <view @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
         </view>
       </view>
 
       <view v-if="wordTrans.length">
         <view v-for="(item, index) in wordTrans" :key="index" >
-          <view>{{item.src}}:{{item.dst}}</view>
+          <view>{{item.src}}:</view><view @tap.stop="this.$copyThat(item.dst)">{{item.dst}}</view>
         </view>
       </view>
 
       <view v-if="wordIDCard">
         <view v-for="(item, index) in wordIDCard" :key="index" >
-          <view>{{index}} : {{item.words}}</view>
+          <view>{{index}} : </view><view @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
         </view>
       </view>
 
       <view v-if="wordBank.bank_card_number">
-        <view>卡号：{{wordBank.bank_card_number}}</view>
-        <view>类型：{{wordBank.bank_card_type}}</view>
-        <view>开户银行：{{wordBank.bank_name}}</view>
-        <view>开户人：{{wordBank.holder_name}}</view>
-        <view>有效期：{{wordBank.valid_date}}</view>
+        <view>卡号：</view><view @tap.stop="this.$copyThat(wordBank.bank_card_number)">{{wordBank.bank_card_number}}</view>
+        <view>类型：</view><view>{{wordBank.bank_card_type}}</view>
+        <view>开户银行：</view><view @tap.stop="this.$copyThat(wordBank.bank_name)">{{wordBank.bank_name}}</view>
+        <view>开户人：</view><view>{{wordBank.holder_name}}</view>
+        <view>有效期：</view><view>{{wordBank.valid_date}}</view>
       </view>
 
       <view v-if="wordBusiness">
         <view v-for="(item, index) in wordBusiness" :key="index" >
-          <view>{{index}} : {{item.words}}</view>
+          <view>{{index}} : </view><view @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
         </view>
       </view>
 
     </view>
+    <view>点击即可复制</view>
   </view>
 </template>
 
 <script>
 import aTip from "@/components/a_tip/aTip"
-import { getShareObj } from "@/utils/share.js"
+import {getShareObj} from "@/utils/share.js"
 import {getWikiDetail} from "@/apis/wiki"
 import {getImgInfoBase64, getImgInfoMultipart} from "@/utils/baidu"
 import gmyImgCropper from "@/components/gmy-img-cropper/gmy-img-cropper"

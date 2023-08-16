@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 // import './uni.promisify.adaptor'
 import store from './store'
-import { toast, loading, toLogin, toBack, toHome, reLunchBack, imageCheck } from './utils/global.js'
+import { toast, loading, toLogin, toBack, toHome, reLunchBack, copyThat, imageCheck } from './utils/global.js'
 
 // 字体图标库
 import './common/iconfont/iconfont.css'
@@ -16,6 +16,7 @@ Vue.prototype.$toLogin = toLogin
 Vue.prototype.$toBack = toBack
 Vue.prototype.$toHome = toHome
 Vue.prototype.$reLunchBack = reLunchBack
+Vue.prototype.$copyThat = copyThat
 
 Vue.prototype.$imageCheck = imageCheck
 

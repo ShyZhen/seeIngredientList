@@ -31,7 +31,7 @@
       ></gmy-img-cropper>
 
       <view v-if="imagePlant.length">
-        <view>
+        <view @tap.stop="this.$copyThat(imagePlant[0].name)">
           {{imagePlant[0].name}}
         </view>
         <view v-if="imagePlant[0].baike_info">
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import {getBaiduToken, getImgInfoBase64} from "@/utils/baidu";
+import {getImgInfoBase64} from "@/utils/baidu";
 import {getShareObj} from "@/utils/share.js";
 import gmyImgCropper from "@/components/gmy-img-cropper/gmy-img-cropper"
 
