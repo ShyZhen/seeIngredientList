@@ -1,22 +1,14 @@
 <template>
   <view class="container" :style="{opacity:pageOpacity}">
 
-    <!--  关注  -->
-    <!-- #ifdef MP-WEIXIN -->
-    <aTip ref="tipNotice" isCustom="true" bgColor="#31313194" borderR="5"></aTip>
-    <!-- #endif -->
-
-    <!--  header  -->
-    <view class="header-container">
-    </view>
-
-    <!--  扫码进入的关注公众号  -->
-    <view>
-      <official-account></official-account>
+    <view style="position:absolute;z-index:12;" :style="{paddingTop: searchInput.top + 'px'}">
+      <view :style="{width:searchInput.width+'px', height:searchInput.height+'px'}">
+        <v-back></v-back>
+      </view>
     </view>
 
     <!--  内容  -->
-    <view style="margin-top:100px">
+    <view style="padding-top:100px">
 
       <!--  下拉框  -->
       <view>
@@ -78,9 +70,7 @@
 </template>
 
 <script>
-import aTip from "@/components/a_tip/aTip"
 import {getShareObj} from "@/utils/share.js"
-import {getWikiDetail} from "@/apis/wiki"
 import {getImgInfoBase64, getImgInfoMultipart} from "@/utils/baidu"
 import gmyImgCropper from "@/components/gmy-img-cropper/gmy-img-cropper"
 
@@ -89,16 +79,23 @@ export default {
     return {
       value: 'rest/2.0/ocr/v1/general_basic',
       range: [
-        { value: 'rest/2.0/ocr/v1/general_basic', text: "通用文字识别" },    // 1000次/月
-        { value: 'file/2.0/mt/pictrans/v1', text: "图片翻译" },    // 总量1万次
-        { value: 'rest/2.0/ocr/v1/idcard', text: "身份证" },    // 1000次/月
-        { value: 'rest/2.0/ocr/v1/bankcard', text: "银行卡" },    // 1000次/月
-        { value: 'rest/2.0/ocr/v1/business_license', text: "营业执照" },    // 1000次/月
+        { value: 'rest/2.0/ocr/v1/general_basic', text: "图文识别" },    // 1000次/月
+        { value: 'file/2.0/mt/pictrans/v1', text: "拍照翻译" },    // 总量1万次
+        { value: 'rest/2.0/ocr/v1/idcard', text: "身份证扫描" },    // 1000次/月
+        { value: 'rest/2.0/ocr/v1/bankcard', text: "银行卡扫描" },    // 1000次/月
+        { value: 'rest/2.0/ocr/v1/business_license', text: "营业执照扫描" },    // 1000次/月
         // { value: 'rest/2.0/ocr/v1/accurate_basic', text: "通用文字识别(高精度)" },    // 1000次/月
         // { value: 'rest/2.0/ocr/v1/handwriting', text: "手写文字识别" },    // 500次/月
       ],
 
       pageOpacity: 0,
+      headerHeight: 0,
+      searchInput: {
+        width: 0,
+        height: 0,
+        top: 0,
+      },
+
       wordsArr: [],
       wordIDCard: {},
       wordBank: {
@@ -113,10 +110,14 @@ export default {
     };
   },
   components: {
-    aTip,
     gmyImgCropper,
   },
-  onLoad(e) {},
+  onLoad(e) {
+    this.searchInput.width = this.$menuButtonRect.right - this.$menuButtonRect.width;
+    this.searchInput.height = this.$menuButtonRect.height
+    this.searchInput.top = this.$menuButtonRect.top
+    this.headerHeight = this.searchInput.top + this.searchInput.height + 12;
+  },
   onReady(e) {
     this.pageOpacity = 1
   },
@@ -191,17 +192,6 @@ export default {
           break
       }
     },
-
-    // 获取分析后的详情，没有就直接百度
-    getDetail: function(item) {
-      let that = this
-      let data = {
-        title: item.words,
-      }
-      getWikiDetail(data).then(res => {
-        console.log(res)
-      })
-    }
 
   }
 };

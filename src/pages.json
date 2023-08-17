@@ -1,5 +1,11 @@
 {
 	"pages": [{
+		"path": "pages/index/navbar",
+		"style" : {
+			"navigationStyle": "custom",
+			"navigationBarTitleText": "图像识别大师"
+		}
+	},{
 		"path": "pages/index/index",
 		"style" : {
 			"navigationStyle": "custom",
@@ -100,16 +106,23 @@
 		"backgroundColor": "#FCFCFD",
 		"list": [
 			{
-			"pagePath": "pages/index/index",
-			"text": "配料",
-			"iconPath": "static/icon/ocr.png",
-			"selectedIconPath": "static/icon/ocr_b.png"
-		}, {
+				"pagePath": "pages/index/navbar",
+				"text": "导航",
+				"iconPath": "static/icon/wiki.png",
+				"selectedIconPath": "static/icon/wiki_b.png"
+			},
+			{
+				"pagePath": "pages/index/index",
+				"text": "配料",
+				"iconPath": "static/icon/ocr.png",
+				"selectedIconPath": "static/icon/ocr_b.png"
+		    },
+			{
 				"pagePath": "pages/index/wiki",
 				"text": "Wiki",
 				"iconPath": "static/icon/wiki.png",
 				"selectedIconPath": "static/icon/wiki_b.png"
-			}
+		   }
 //		,{
 //			"pagePath": "pages/find/find",
 //			"iconPath": "static/icon/find.png",

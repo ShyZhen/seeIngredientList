@@ -1,12 +1,14 @@
 <template>
   <view class="container" :style="{opacity:pageOpacity}">
 
-    <!--  header  -->
-    <view class="header-container">
+    <view style="position:absolute;z-index:12;" :style="{paddingTop: searchInput.top + 'px'}">
+      <view :style="{width:searchInput.width+'px', height:searchInput.height+'px'}">
+        <v-back></v-back>
+      </view>
     </view>
 
     <!--  内容  -->
-    <view style="margin-top:100px">
+    <view style="padding-top:100px">
 
       <!--  下拉框  -->
       <view>
@@ -86,14 +88,21 @@ export default {
       value: 'rest/2.0/image-classify/v1/plant',
       range: [
         { value: 'rest/2.0/image-classify/v1/plant', text: "拍照识花" },    // 总量1万次
-        { value: 'rest/2.0/image-classify/v1/animal', text: "呆萌猛兽" },    // 总量1万次
-        { value: 'rest/2.0/image-classify/v1/classify/ingredient', text: "水果蔬菜" },    // 总量1000次赠送
+        { value: 'rest/2.0/image-classify/v1/animal', text: "动物百科" },    // 总量1万次
+        { value: 'rest/2.0/image-classify/v1/classify/ingredient', text: "果蔬识别" },    // 总量1000次赠送
         { value: 'rest/2.0/image-classify/v1/currency', text: "货币钱币" },    // 总量500次赠送
-        { value: 'rest/2.0/image-classify/v2/advanced_general', text: "其他识别" },    // 通用物体和场景识别 总量1万次
+        { value: 'rest/2.0/image-classify/v2/advanced_general', text: "万物识别" },    // 通用物体和场景识别 总量1万次
         // { value: 'rest/2.0/image-classify/v2/logo', text: "品牌Logo" },    // 无
       ],
 
       pageOpacity: 0,
+      headerHeight: 0,
+      searchInput: {
+        width: 0,
+        height: 0,
+        top: 0,
+      },
+
       imagePlant: [],
       imageIngredient: [],
       imageCurrency: [],
@@ -103,7 +112,12 @@ export default {
   components: {
     gmyImgCropper,
   },
-  onLoad(e) {},
+  onLoad(e) {
+    this.searchInput.width = this.$menuButtonRect.right - this.$menuButtonRect.width;
+    this.searchInput.height = this.$menuButtonRect.height
+    this.searchInput.top = this.$menuButtonRect.top
+    this.headerHeight = this.searchInput.top + this.searchInput.height + 12;
+  },
   onReady(e) {
     this.pageOpacity = 1
   },
