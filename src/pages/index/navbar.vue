@@ -12,7 +12,7 @@
     </view>
 
     <view class="ganglist" :style="{'padding-top': headerHeight + 'px'}">
-      <view class="gangitem center column" v-for="(item,index) in dataList" :key="item._id"
+      <view class="gangitem center column" v-for="(item,index) in dataList" :key="item.id"
             :style="{'background':themeList[index%11].background}" @click="goPlay(item, index)">
         <image
             v-if="item.image"
@@ -87,20 +87,20 @@ export default {
       },
 
       dataList:[
-        {_id: 1,image: '../../static/sil/tuwen.png',title:'图文识别',count: 11,content:'智能识别文字复制粘贴'},
-        {_id: 2,image: '../../static/sil/hua.png',title:'拍照识花',count: 11,content:'欲问相思处,花开花落时'},
-        {_id: 3,image: '../../static/sil/fanyi.png',title:'拍照翻译',count: 11,content:'支持多种语言翻译中文'},
-        {_id: 4,image: '../../static/sil/animal.png',title:'动物百科',count: 11,content:'哇好可爱!这是什么动物?'},
-        {_id: 5,image: '../../static/sil/idcard.png',title:'身份证扫描',count: 11,content:'身份证号码和地址太长啦'},
-        {_id: 6,image: '../../static/sil/fruit.png',title:'果蔬识别',count: 11,content:'好吃的水果必须拥有名字'},
-        {_id: 7,image: '../../static/sil/visa.png',title:'银行卡扫描',count: 11,content:'银行卡信息快速识别'},
-        {_id: 8,image: '../../static/sil/money.png',title:'货币钱币',count: 11,content:'这是津巴布韦不是美元!'},
+        {id: 1, image: '../../static/sil/tuwen.png', title:'图文识别', content:'智能识别文字复制粘贴'},
+        {id: 2, image: '../../static/sil/hua.png', title:'拍照识花', content:'欲问相思处,花开花落时'},
+        {id: 3, image: '../../static/sil/fanyi.png', title:'拍照翻译', content:'支持多种语言翻译中文'},
+        {id: 4, image: '../../static/sil/animal.png', title:'动物百科', content:'哇好可爱!这是什么动物?'},
+        {id: 5, image: '../../static/sil/idcard.png', title:'身份证扫描', content:'身份证号码和地址太长啦'},
+        {id: 6, image: '../../static/sil/fruit.png', title:'果蔬识别', content:'好吃的水果必须拥有名字'},
+        {id: 7, image: '../../static/sil/visa.png', title:'银行卡扫描', content:'银行卡信息快速识别'},
+        {id: 8, image: '../../static/sil/money.png', title:'货币钱币', content:'这是津巴布韦不是美元!'},
 
-        {_id: 9,image: '../../static/sil/tianyitian.png',title:'头像挂件工坊',count: 11,content:'给你的头像加点料'},
-        {_id: 10,image: '../../static/sil/wangzhe.png',title:'王者幸运星',count: 11,content:'皮肤免费抽,碎片免费送'},
+        {id: 9, image: '../../static/sil/tianyitian.png', title:'头像挂件工坊', content:'给你的头像加点料'},
+        {id: 10, image: '../../static/sil/wangzhe.png', title:'王者幸运星', content:'皮肤免费抽,碎片免费送'},
 
-        {_id: 9,image:'../../static/sil/zhao.png',title:'营业执照扫描',count: 11,content:'字太多了实在不想抄了'},
-        {_id: 10,image: '../../static/sil/every.png',title:'万物识别',count: 11,content:'不知道分类?统统交给我!'},
+        {id: 11, image:'../../static/sil/zhao.png', title:'营业执照扫描', content:'字太多了实在不想抄了'},
+        {id: 12, image: '../../static/sil/every.png', title:'万物识别', content:'不知道分类?统统交给我!'},
       ],
 
     };
@@ -124,12 +124,9 @@ export default {
     return getShareObj()
   },
   methods: {
-    goPlay(item, index){
-
-      console.log(23)
-      item.background=this.themeList[index%11].background
+    goPlay(item){
       uni.navigateTo({
-        url: '/pages/release/cabinList?item='+JSON.stringify(item)
+        url: '/pages/index/detail?item='+JSON.stringify(item)
       });
     },
 

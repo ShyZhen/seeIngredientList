@@ -17,6 +17,18 @@
 			"navigationStyle": "custom",
 			"navigationBarTitleText": "配料大全"
 		}
+	},{
+		"path": "pages/index/history",
+		"style" : {
+			"navigationStyle": "custom",
+			"navigationBarTitleText": "我的使用历史"
+		}
+	},{
+		"path": "pages/index/detail",
+		"style" : {
+			"navigationStyle": "custom",
+			"navigationBarTitleText": "图像识别大师"
+		}
 	}
 //	,{
 //		"path": "pages/find/find",
@@ -108,21 +120,15 @@
 			{
 				"pagePath": "pages/index/navbar",
 				"text": "导航",
-				"iconPath": "static/icon/wiki.png",
-				"selectedIconPath": "static/icon/wiki_b.png"
+				"iconPath": "static/icon/shop.png",
+				"selectedIconPath": "static/icon/shop_b.png"
 			},
 			{
-				"pagePath": "pages/index/index",
-				"text": "配料",
-				"iconPath": "static/icon/ocr.png",
-				"selectedIconPath": "static/icon/ocr_b.png"
-		    },
-			{
-				"pagePath": "pages/index/wiki",
-				"text": "Wiki",
-				"iconPath": "static/icon/wiki.png",
-				"selectedIconPath": "static/icon/wiki_b.png"
-		   }
+				"pagePath": "pages/index/history",
+				"text": "历史",
+				"iconPath": "static/icon/me.png",
+				"selectedIconPath": "static/icon/me_b.png"
+		    }
 //		,{
 //			"pagePath": "pages/find/find",
 //			"iconPath": "static/icon/find.png",
