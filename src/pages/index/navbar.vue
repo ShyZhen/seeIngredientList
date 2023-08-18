@@ -20,11 +20,11 @@
             mode="aspectFill"
             lazy-load=true
             class=""
-            style="width:114rpx;height:114rpx;border-radius: 50%;"
+            style="width:114rpx;height:114rpx;"
         ></image>
 
         <text class="gangtitle">{{item.title}}</text>
-        <text class="gangman">欢迎加入小屋</text>
+        <!-- <text class="gangman">欢迎使用</text> -->
         <text class="gangremark">{{item.content}}</text>
       </view>
     </view>
@@ -87,16 +87,20 @@ export default {
       },
 
       dataList:[
-        {_id: 1,image:'../../static/logo.jpg',title:'图文识别',count: 11,content:'内容水电费司令框架发'},
-        {_id: 2,image:'',title:'拍照识花',count: 11,content:'内容水电费司令框架发'},
-        {_id: 3,image:'',title:'拍照翻译',count: 11,content:'内容水电费司令框架发'},
-        {_id: 4,image:'',title:'动物百科',count: 11,content:'内容水电费司令框架发'},
-        {_id: 5,image:'',title:'身份证扫描',count: 11,content:'内容水电费司令框架发'},
-        {_id: 6,image:'',title:'果蔬识别',count: 11,content:'内容水电费司令框架发'},
-        {_id: 7,image:'',title:'银行卡扫描',count: 11,content:'内容水电费司令框架发'},
-        {_id: 8,image:'',title:'货币钱币',count: 11,content:'内容水电费司令框架发'},
-        {_id: 9,image:'',title:'营业执照扫描',count: 11,content:'内容水电费司令框架发'},
-        {_id: 10,image:'',title:'万物识别',count: 11,content:'内容水电费司令框架发'},
+        {_id: 1,image: '../../static/sil/tuwen.png',title:'图文识别',count: 11,content:'智能识别文字复制粘贴'},
+        {_id: 2,image: '../../static/sil/hua.png',title:'拍照识花',count: 11,content:'欲问相思处,花开花落时'},
+        {_id: 3,image: '../../static/sil/fanyi.png',title:'拍照翻译',count: 11,content:'支持多种语言翻译中文'},
+        {_id: 4,image: '../../static/sil/animal.png',title:'动物百科',count: 11,content:'哇好可爱!这是什么动物?'},
+        {_id: 5,image: '../../static/sil/idcard.png',title:'身份证扫描',count: 11,content:'身份证号码和地址太长啦'},
+        {_id: 6,image: '../../static/sil/fruit.png',title:'果蔬识别',count: 11,content:'好吃的水果必须拥有名字'},
+        {_id: 7,image: '../../static/sil/visa.png',title:'银行卡扫描',count: 11,content:'银行卡信息快速识别'},
+        {_id: 8,image: '../../static/sil/money.png',title:'货币钱币',count: 11,content:'这是津巴布韦不是美元!'},
+
+        {_id: 9,image: '../../static/sil/tianyitian.png',title:'头像挂件工坊',count: 11,content:'给你的头像加点料'},
+        {_id: 10,image: '../../static/sil/wangzhe.png',title:'王者幸运星',count: 11,content:'皮肤免费抽,碎片免费送'},
+
+        {_id: 9,image:'../../static/sil/zhao.png',title:'营业执照扫描',count: 11,content:'字太多了实在不想抄了'},
+        {_id: 10,image: '../../static/sil/every.png',title:'万物识别',count: 11,content:'不知道分类?统统交给我!'},
       ],
 
     };
@@ -121,6 +125,8 @@ export default {
   },
   methods: {
     goPlay(item, index){
+
+      console.log(23)
       item.background=this.themeList[index%11].background
       uni.navigateTo({
         url: '/pages/release/cabinList?item='+JSON.stringify(item)
@@ -156,7 +162,7 @@ page {
     background:linear-gradient(90deg, #dcf8e7 0%, #dcf8f7 100%);
     border-radius: 24rpx;
     justify-content: flex-start;
-    padding-top: 30rpx;
+    padding-top: 60rpx;
     margin-right: 20rpx;
     margin-bottom: 20rpx;
     &:nth-child(2){

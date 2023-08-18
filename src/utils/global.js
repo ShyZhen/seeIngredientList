@@ -97,7 +97,8 @@ function randomString(e) {
 }
 
 // 内容检查(旧版-云调用)
-function imageCheck(tempImagePath, callback) {
+// 云空间不能再用了，一个月低销19，后续39
+function imageCheckBak(tempImagePath, callback) {
     // 判断是否需要内容检查
     if (!Config.imageCheckFlag) {
         callback(tempImagePath);
@@ -176,7 +177,7 @@ function imageCheck(tempImagePath, callback) {
 }
 
 // 新版 https调用
-function imageCheckBak(tempImagePath, callback) {
+function imageCheck(tempImagePath, callback) {
     // 判断是否需要内容检查
     if (!Config.imageCheckFlag) {
         callback(tempImagePath);
