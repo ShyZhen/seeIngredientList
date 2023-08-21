@@ -2,25 +2,25 @@
 	"pages": [{
 		"path": "pages/index/navbar",
 		"style" : {
-			"navigationStyle": "custom",
+//			"navigationStyle": "custom",
 			"navigationBarTitleText": "图像识别大师"
 		}
 	},{
 		"path": "pages/index/index",
 		"style" : {
 			"navigationStyle": "custom",
-			"navigationBarTitleText": "配料Wiki"
+			"navigationBarTitleText": ""
 		}
 	},{
 		"path": "pages/index/wiki",
 		"style" : {
 			"navigationStyle": "custom",
-			"navigationBarTitleText": "配料大全"
+			"navigationBarTitleText": ""
 		}
 	},{
 		"path": "pages/index/history",
 		"style" : {
-			"navigationStyle": "custom",
+//			"navigationStyle": "custom",
 			"navigationBarTitleText": "我的使用历史"
 		}
 	},{

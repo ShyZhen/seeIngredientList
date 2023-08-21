@@ -3,7 +3,7 @@
 
     <!--  关注  -->
     <!-- #ifdef MP-WEIXIN -->
-    <aTip ref="tipNotice" isCustom="true" bgColor="#31313194" borderR="5"></aTip>
+    <aTip ref="tipNotice" :isCustom=false bgColor="#31313194" borderR="5"></aTip>
     <!-- #endif -->
 
     <!--  扫码进入的关注公众号  -->
@@ -11,7 +11,7 @@
       <official-account></official-account>
     </view>
 
-    <view class="ganglist" :style="{'padding-top': headerHeight + 'px'}">
+    <view class="ganglist">
       <view class="gangitem center column" v-for="(item,index) in dataList" :key="item.id"
             :style="{'background':themeList[index%11].background}" @click="goPlay(item, index)">
         <image

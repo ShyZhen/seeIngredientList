@@ -8,8 +8,8 @@
     </view>
 
     <!--  内容  -->
-    <view style="padding-top:100px">
-
+    <view :style="{'padding-top': headerHeight + 'px'}">
+      wqw
     </view>
 
   </view>

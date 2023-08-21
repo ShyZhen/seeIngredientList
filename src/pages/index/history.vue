@@ -2,10 +2,8 @@
   <view class="container" :style="{opacity:pageOpacity}">
 
     <!--  内容  -->
-    <view style="padding-top:100px">
-
-
-
+    <view>
+      ssss
     </view>
 
   </view>
