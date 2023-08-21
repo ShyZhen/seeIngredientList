@@ -2,7 +2,6 @@
 	"pages": [{
 		"path": "pages/index/navbar",
 		"style" : {
-//			"navigationStyle": "custom",
 			"navigationBarTitleText": "图像识别大师"
 		}
 	},{
@@ -12,15 +11,8 @@
 			"navigationBarTitleText": ""
 		}
 	},{
-		"path": "pages/index/wiki",
-		"style" : {
-			"navigationStyle": "custom",
-			"navigationBarTitleText": ""
-		}
-	},{
 		"path": "pages/index/history",
 		"style" : {
-//			"navigationStyle": "custom",
 			"navigationBarTitleText": "我的使用历史"
 		}
 	},{

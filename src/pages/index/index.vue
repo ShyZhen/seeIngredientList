@@ -64,6 +64,49 @@
         </view>
       </view>
 
+      <!--   图识别    -->
+      <view v-if="imagePlant.length">
+        <view @tap.stop="this.$copyThat(imagePlant[0].name)">
+          {{imagePlant[0].name}}
+        </view>
+        <view v-if="imagePlant[0].baike_info">
+          <view>
+            {{imagePlant[0].baike_info.description}}
+          </view>
+          <view>
+            <img :src="imagePlant[0].baike_info.image_url" alt=""/>
+          </view>
+        </view>
+      </view>
+
+      <view v-if="imageIngredient.length">
+        <view>
+          {{imageIngredient[0].name}}
+        </view>
+      </view>
+
+      <view v-if="imageCurrency.currencyCode">
+        <view v-if="imageCurrency.hasdetail">货币代码：{{imageCurrency.currencyCode}}</view>
+        <view>货币名称：{{imageCurrency.currencyName}}</view>
+        <view v-if="imageCurrency.hasdetail">货币面值：{{imageCurrency.currencyDenomination}}</view>
+        <view v-if="imageCurrency.hasdetail">货币年份：{{imageCurrency.year}}</view>
+      </view>
+
+      <view v-if="imageGeneral.length">
+        <view>
+          {{imageGeneral[0].keyword}}
+        </view>
+        <view v-if="imageGeneral[0].baike_info.description">
+          <view>
+            {{imageGeneral[0].baike_info.description}}
+          </view>
+          <view>
+            <img :src="imageGeneral[0].baike_info.image_url" alt=""/>
+          </view>
+        </view>
+      </view>
+
+
     </view>
     <view>点击即可复制</view>
   </view>
@@ -86,6 +129,13 @@ export default {
         { value: 'rest/2.0/ocr/v1/business_license', text: "营业执照扫描" },    // 1000次/月
         // { value: 'rest/2.0/ocr/v1/accurate_basic', text: "通用文字识别(高精度)" },    // 1000次/月
         // { value: 'rest/2.0/ocr/v1/handwriting', text: "手写文字识别" },    // 500次/月
+
+        { value: 'rest/2.0/image-classify/v1/plant', text: "拍照识花" },    // 总量1万次
+        { value: 'rest/2.0/image-classify/v1/animal', text: "动物百科" },    // 总量1万次
+        { value: 'rest/2.0/image-classify/v1/classify/ingredient', text: "果蔬识别" },    // 总量1000次赠送
+        { value: 'rest/2.0/image-classify/v1/currency', text: "货币钱币" },    // 总量500次赠送
+        { value: 'rest/2.0/image-classify/v2/advanced_general', text: "万物识别" },    // 通用物体和场景识别 总量1万次
+        // { value: 'rest/2.0/image-classify/v2/logo', text: "品牌Logo" },    // 无
       ],
 
       pageOpacity: 0,
@@ -107,6 +157,11 @@ export default {
       },
       wordBusiness: {},
       wordTrans: [],
+
+      imagePlant: [],
+      imageIngredient: [],
+      imageCurrency: [],
+      imageGeneral: [],
     };
   },
   components: {
@@ -189,6 +244,23 @@ export default {
           break
         case 'rest/2.0/ocr/v1/business_license':  // 营业执照
           this.wordBusiness = data.words_result
+          break
+
+
+        case 'rest/2.0/image-classify/v1/plant':  // 花草植物
+          this.imagePlant = data.result
+          break
+        case 'rest/2.0/image-classify/v1/animal':  // 动物
+          this.imagePlant = data.result
+          break
+        case 'rest/2.0/image-classify/v1/classify/ingredient':  // 水果蔬菜
+          this.imageIngredient = data.result
+          break
+        case 'rest/2.0/image-classify/v1/currency':  // 货币钱币
+          this.imageCurrency = data.result
+          break
+        case 'rest/2.0/image-classify/v2/advanced_general':  // 通用
+          this.imageGeneral = data.result
           break
       }
     },
