@@ -35,6 +35,7 @@
 <script>
 import aTip from "@/components/a_tip/aTip"
 import {getShareObj} from "@/utils/share.js"
+import baiduData from "@/utils/baiduData";
 
 export default {
   data() {
@@ -86,22 +87,7 @@ export default {
         }
       },
 
-      dataList:[
-        {id: 1, image: '../../static/sil/tuwen.png', title:'图文识别', content:'智能识别文字复制粘贴'},
-        {id: 2, image: '../../static/sil/hua.png', title:'拍照识花', content:'欲问相思处,花开花落时'},
-        {id: 3, image: '../../static/sil/fanyi.png', title:'拍照翻译', content:'支持多种语言翻译中文'},
-        {id: 4, image: '../../static/sil/animal.png', title:'动物百科', content:'哇好可爱!这是什么动物?'},
-        {id: 5, image: '../../static/sil/idcard.png', title:'身份证扫描', content:'身份证号码和地址太长啦'},
-        {id: 6, image: '../../static/sil/fruit.png', title:'果蔬识别', content:'好吃的水果必须拥有名字'},
-        {id: 7, image: '../../static/sil/visa.png', title:'银行卡扫描', content:'银行卡信息快速识别'},
-        {id: 8, image: '../../static/sil/money.png', title:'货币钱币', content:'这是津巴布韦不是美元!'},
-
-        {id: 9, image: '../../static/sil/tianyitian.png', title:'头像挂件工坊', content:'给你的头像加点料'},
-        {id: 10, image: '../../static/sil/wangzhe.png', title:'王者幸运星', content:'皮肤免费抽,碎片免费送'},
-
-        {id: 11, image:'../../static/sil/zhao.png', title:'营业执照扫描', content:'字太多了实在不想抄了'},
-        {id: 12, image: '../../static/sil/every.png', title:'万物识别', content:'不知道分类?统统交给我!'},
-      ],
+      dataList: baiduData,
 
     };
   },
@@ -125,9 +111,29 @@ export default {
   },
   methods: {
     goPlay(item){
-      uni.navigateTo({
-        url: '/pages/index/detail?item='+JSON.stringify(item)
-      });
+      console.log(item)
+
+      // 9和10写死是引流小程序
+      switch (item.id) {
+        case 9:
+        case 10:
+          uni.navigateToMiniProgram({
+            appId: item.appId,
+            path: item.path,
+            success(res) {
+            },
+            fail(e) {
+              console.log(e);
+            }
+          })
+          break
+        default:
+          // TODO 是跳转统一的页面，还是每个功能写一个啊,参数只传ID就行吧免得还要解析json
+          uni.navigateTo({
+            url: '/pages/index/detail?item='+JSON.stringify(item)
+          });
+          break
+      }
     },
 
   }

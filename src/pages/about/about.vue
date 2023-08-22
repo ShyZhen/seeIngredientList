@@ -151,7 +151,7 @@ page {
             right: 0;
             width: 76rpx;
             height: 68rpx;
-            background: url(../../static/about/remarks.png);
+            background: url(../../static/icon/remarks.png);
             background-size: 288rpx 176rpx;
           }
 

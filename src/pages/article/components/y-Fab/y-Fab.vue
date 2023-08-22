@@ -28,7 +28,7 @@
 			<view class="yc-fab-item" :class="{'yc-active':isOpen}" :style="{width:width+'rpx',height:height+'rpx',borderRadius:radius,background:bgColor,color:color}"
 			 @tap.stop="handleClick(-1)">
 <!--				<view class="yc-fab-icon yc-icon-plus"></view>-->
-        <image src="/static/default_avatar2.jpg" mode="widthFix" style="border-radius: 50%"></image>
+        <image src="/static/default_avatar.jpg" mode="widthFix" style="border-radius: 50%"></image>
 			</view>
 		</view>
 		<view class="yc-fab-mask" :class="{'yc-visible':isOpen}" @tap="handleClickCancel"></view>
