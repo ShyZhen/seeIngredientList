@@ -19,6 +19,7 @@ const env = {
 
     // API 地址
     apiBaseUrl: 'https://api.xxx.com',
+    cdnUrl: 'https://image.xxx.com',
 
     // token存储键名
     tokenKey: 'SIL-TOKEN-KEY',

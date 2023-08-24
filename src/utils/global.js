@@ -55,7 +55,7 @@ function reLunchBack() {
 
 function toHome() {
     uni.switchTab({
-        url: '../index/index'
+        url: '../index/navbar'
     });
 }
 
