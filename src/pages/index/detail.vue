@@ -16,7 +16,9 @@
 
       <!--   按钮    -->
       <view>
-
+        <icon class="iconfont iconxiangji"></icon>
+        <icon class="iconfont iconxiangji2"></icon>
+        <icon class="iconfont iconxiangji3"></icon>
       </view>
     </view>
 
