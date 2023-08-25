@@ -111,8 +111,6 @@ export default {
   },
   methods: {
     goPlay(item, index){
-      console.log(item)
-
       // 9和10写死是引流小程序
       switch (item.id) {
         case 9:
@@ -131,7 +129,7 @@ export default {
           // TODO 剪裁框的图标需要优化位置；展示页最好弄成一个统一的组件吧，历史页也需要展示的；王者小程序跳转引流改成这个；
           item.background=this.themeList[index%11].background
           uni.navigateTo({
-            url: '/pages/index/detail?item='+JSON.stringify(item)
+            url: `/pages/index/detail?id=${item.id}`
           });
           break
       }
