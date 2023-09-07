@@ -62,7 +62,8 @@
 //                "provider": "wx50b5593e81dd937a"
 //            }
         },
-        "lazyCodeLoading": "requiredComponents"
+        "lazyCodeLoading": "requiredComponents",
+        "__usePrivacyCheck__" : true
     },
     "h5" : {
         "optimization" : {

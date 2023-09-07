@@ -113,9 +113,9 @@
       <view class="cropper-config">
         <view class="button-box">
           <!-- <button type="warn" @click="chooseImage">重选</button> -->
-          <view @click="close" hover-class="hover" style="width: 20%;"><i class="avatar-icon iconfont icontuichu" style="color: #FF5722;font-size: xx-large"></i></view>
-          <view @click="previewImg" hover-class="hover" style="width: 20%;"><i class="avatar-icon iconfont iconyulan2" style="color: #FF5722;font-size: xx-large"></i></view>
-          <view @click="finish" hover-class="hover" style="width: 20%;"><i class="avatar-icon iconfont iconqueding" style="color: #FF5722;font-size: xx-large"></i></view>
+          <view @click="close" hover-class="hover"><i class="avatar-icon iconfont icontuichu" style="color: #FF5722;font-size: xx-large"></i></view>
+          <view @click="previewImg" hover-class="hover"><i class="avatar-icon iconfont iconyulan2" style="color: #FF5722;font-size: xx-large"></i></view>
+          <view @click="finish" hover-class="hover"><i class="avatar-icon iconfont iconqueding" style="color: #FF5722;font-size: xx-large"></i></view>
         </view>
       </view>
       <canvas
@@ -670,7 +670,6 @@ export default {
   bottom: 10px;
   left: 0;
   right: 0;
-
   width: 90%;
   margin: 0 auto;
   /* padding: 20upx 40upx; */
@@ -680,7 +679,6 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
   width: 100%;
 }
 
@@ -697,17 +695,13 @@ export default {
 
 .uni-corpper {
   position: relative;
-
   overflow: hidden;
-
   box-sizing: border-box;
   margin: 0 auto;
-
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
 }
@@ -725,10 +719,8 @@ export default {
   /* height: 100%; */
   min-height: 0 !important;
   /* max-height: none !important; */
-
   max-height: calc(100vh - 100upx);
   margin: 0 auto;
-
   image-orientation: 0deg !important;
 }
 
@@ -740,9 +732,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-
   cursor: move;
-
   background: rgba(0, 0, 0, 0.479);
 }
 
@@ -756,13 +746,10 @@ export default {
 
 .uni-corpper-crop-box .uni-cropper-view-box {
   position: relative;
-
   display: block;
   overflow: visible;
-
   width: 100%;
   height: 100%;
-
   max-height: calc(100vh - 100upx);
   outline: 5upx solid rgb(100, 97, 97);
   outline-color: rgba(255, 255 255, 1);
@@ -773,10 +760,8 @@ export default {
   position: absolute;
   top: 33.33333333%;
   left: 0;
-
   width: 100%;
   height: 33.33333333%;
-
   border-top: 1upx dashed rgba(255, 255, 255, 0.5);
   border-bottom: 1upx dashed rgba(255, 255, 255, 0.5);
 }
@@ -786,10 +771,8 @@ export default {
   position: absolute;
   top: 0;
   left: 33.33333333%;
-
   width: 33.33333333%;
   height: 100%;
-
   border-right: 1upx dashed rgba(255, 255, 255, 0.5);
   border-left: 1upx dashed rgba(255, 255, 255, 0.5);
 }
@@ -799,14 +782,10 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-
   display: block;
-
   width: 100%;
   height: 3upx;
-
   cursor: n-resize;
-
   opacity: 0.1;
   background-color: white;
 }
@@ -817,14 +796,11 @@ export default {
   top: 50%;
   right: 0upx;
   bottom: 0;
-
   width: 100%;
   height: 41upx;
-
   content: "";
   -webkit-transform: translate3d(0, -50%, 0);
   transform: translate3d(0, -50%, 0);
-
   background: transparent;
 }
 
@@ -832,14 +808,10 @@ export default {
   position: absolute;
   top: 0;
   right: 0upx;
-
   display: block;
-
   width: 3upx;
   height: 100%;
-
   cursor: e-resize;
-
   opacity: 0.1;
   background-color: white;
 }
@@ -850,14 +822,11 @@ export default {
   top: 0;
   bottom: 0;
   left: 50%;
-
   width: 41upx;
   height: 100%;
-
   content: "";
   -webkit-transform: translate3d(-50%, 0, 0);
   transform: translate3d(-50%, 0, 0);
-
   background: transparent;
 }
 
@@ -865,14 +834,10 @@ export default {
   position: absolute;
   bottom: 0;
   left: 0;
-
   display: block;
-
   width: 100%;
   height: 3upx;
-
   cursor: s-resize;
-
   opacity: 0.1;
   background-color: white;
 }
@@ -883,14 +848,11 @@ export default {
   top: 50%;
   right: 0upx;
   bottom: 0;
-
   width: 100%;
   height: 41upx;
-
   content: "";
   -webkit-transform: translate3d(0, -50%, 0);
   transform: translate3d(0, -50%, 0);
-
   background: transparent;
 }
 
@@ -898,14 +860,10 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-
   display: block;
-
   width: 3upx;
   height: 100%;
-
   cursor: w-resize;
-
   opacity: 0.1;
   background-color: white;
 }
@@ -916,24 +874,19 @@ export default {
   top: 0;
   bottom: 0;
   left: 50%;
-
   width: 41upx;
   height: 100%;
-
   content: "";
   -webkit-transform: translate3d(-50%, 0, 0);
   transform: translate3d(-50%, 0, 0);
-
   background: transparent;
 }
 
 .uni-cropper-point {
   position: absolute;
   z-index: 3;
-
   width: 5upx;
   height: 5upx;
-
   opacity: 0.75;
   background-color: rgb(145, 132, 132);
 }
@@ -941,94 +894,75 @@ export default {
 .point-t {
   top: -3upx;
   left: 50%;
-
   margin-left: -3upx;
-
   cursor: n-resize;
 }
 
 .point-tr {
   top: -3upx;
   left: 100%;
-
   margin-left: -3upx;
-
   cursor: n-resize;
 }
 
 .point-r {
   top: 50%;
   left: 100%;
-
   margin-top: -3upx;
   margin-left: -3upx;
-
   cursor: n-resize;
 }
 
 .point-rb {
   position: absolute;
-  z-index: 1112;
+  z-index: 10;
   top: 100%;
   left: 100%;
-
   width: 36upx;
   height: 36upx;
-
   cursor: n-resize;
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
-
   opacity: 1;
-  background-color: rgb(231, 222, 222);
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .point-b {
   top: 100%;
   left: 50%;
-
   margin-top: -3upx;
   margin-left: -3upx;
-
   cursor: n-resize;
 }
 
 .point-bl {
   top: 100%;
   left: 0;
-
   margin-top: -3upx;
   margin-left: -3upx;
-
   cursor: n-resize;
 }
 
 .point-l {
   top: 50%;
   left: 0;
-
   margin-top: -3upx;
   margin-left: -3upx;
-
   cursor: n-resize;
 }
 
 .point-lt {
   top: 0;
   left: 0;
-
   margin-top: -3upx;
   margin-left: -3upx;
-
   cursor: n-resize;
 }
 
 /* 裁剪框预览内容 */
 .uni-cropper-viewer {
   position: relative;
-
   overflow: hidden;
-
   width: 100%;
   height: 100%;
 }
@@ -1039,6 +973,6 @@ export default {
 }
 
 .hover {
-  background: #f1f1f1;
+  background: rgba(255,255,255,0.5);
 }
 </style>

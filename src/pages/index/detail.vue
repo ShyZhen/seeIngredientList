@@ -21,10 +21,12 @@
 
       <view class="operate">
         <view class="operate-album" @click="picToTxt('album')">
-          从相册选择<image class="icon" src="/static/icon/arrow_right.png" />
+          从相册选择
+          <icon class="icon iconfont iconfenxiang"></icon>
+
         </view>
         <view class="operate-camera" @click="picToTxt('camera')">
-          <image class="icon" src="/static/icon/camera.png" />
+          <icon class="icon iconfont iconxiangji3"></icon>
           {{ item.title }}
         </view>
       </view>
@@ -37,7 +39,7 @@
           fileType="jpg"
           @getImg="getCropImg"
       ></gmy-img-cropper>
-
+    </view>
   </view>
 </template>
 
@@ -48,9 +50,6 @@ import Config from "@/config/config";
 import baiduData from "@/utils/baiduData";
 
 export default {
-   components: {
-    gmyImgCropper,
-  },
   data() {
     return {
 
@@ -76,6 +75,7 @@ export default {
     };
   },
   components: {
+    gmyImgCropper,
   },
   onLoad(e) {
     this.searchInput.width = this.$menuButtonRect.right - this.$menuButtonRect.width;
@@ -246,8 +246,11 @@ export default {
     font-size: 36rpx;
     color: #ff5f68;
     .icon {
-      width: 46rpx;
-      height: 36rpx;
+      //width: 46rpx;
+      //height: 36rpx;
+
+      font-size: 45rpx;
+      transform: rotate(180deg);
     }
   }
 
@@ -263,9 +266,12 @@ export default {
     background: linear-gradient(to right, #ff754a, #ff5f68);
     border-radius: 80rpx;
     .icon {
-      width: 52rpx;
-      height: 46rpx;
+      //width: 52rpx;
+      //height: 46rpx;
+      //margin-right: 25rpx;
+
       margin-right: 25rpx;
+      font-size: xx-large;
     }
   }
 }

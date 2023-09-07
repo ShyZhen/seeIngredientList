@@ -29,10 +29,18 @@
       </view>
     </view>
 
+
+    <view>
+      <!-- #ifdef MP-WEIXIN -->
+      <ZYPrivacy @cancel="exitMp"></ZYPrivacy>
+      <!-- #endif -->
+    </view>
+
   </view>
 </template>
 
 <script>
+import ZYPrivacy from "@/components/zy-privacy/zy-privacy"
 import aTip from "@/components/a_tip/aTip"
 import {getShareObj} from "@/utils/share.js"
 import baiduData from "@/utils/baiduData";
@@ -92,7 +100,8 @@ export default {
     };
   },
   components: {
-    aTip
+    aTip,
+    ZYPrivacy
   },
   onLoad(e) {
     this.searchInput.width = this.$menuButtonRect.right - this.$menuButtonRect.width;
@@ -134,7 +143,17 @@ export default {
           break
       }
     },
-
+    exitMp() {
+      console.log('退出小程序')
+      wx.exitMiniProgram({
+        success: (e) => {
+          console.log(e)
+        },
+        fail: (error) => {
+          this.$toast(error)
+        }
+      })
+    },
   }
 };
 </script>

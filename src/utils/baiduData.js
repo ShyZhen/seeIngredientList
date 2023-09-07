@@ -79,7 +79,7 @@ const dataList = [
     content: '给你的头像加点料',
     appId: 'wx0559a4b18b51c197',
     path: 'pages/index/index',
-    desc: ['菊', '秋满篱根始见花，', '却从冷淡遇繁华。', '西风门径含香在，', '除却陶家到我家。']
+    desc: []
   },
   {
     id: 10,
@@ -88,7 +88,7 @@ const dataList = [
     content: '皮肤免费抽,碎片免费送',
     appId: 'wx720ac6d7229813a6',
     path: 'pages/history/history',
-    desc: ['菊', '秋满篱根始见花，', '却从冷淡遇繁华。', '西风门径含香在，', '除却陶家到我家。']
+    desc: []
   },
 
   {

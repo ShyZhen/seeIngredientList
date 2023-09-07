@@ -121,13 +121,6 @@
 				"iconPath": "static/icon/me.png",
 				"selectedIconPath": "static/icon/me_b.png"
 		    }
-        ,
-			{
-				"pagePath": "pages/index/index",
-				"text": "历史",
-				"iconPath": "static/icon/me.png",
-				"selectedIconPath": "static/icon/me_b.png"
-		    }
 //		,{
 //			"pagePath": "pages/find/find",
 //			"iconPath": "static/icon/find.png",
