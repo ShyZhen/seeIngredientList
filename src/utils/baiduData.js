@@ -6,7 +6,7 @@ const dataList = [
     value: 'rest/2.0/ocr/v1/general_basic',
     content: '智能识别文字复制粘贴',
     poster: '/mp/sil/tuwen.jpg',
-    desc: ['文', '燕兰识字尚聪明，', '难遣当筵迟暮情。', '且莫空山听雨去，', '有人花底祝长生。']
+    desc: ['文', '燕兰识字尚聪明，', '难遣当筵迟暮情。', '且莫空山听雨去，', '有人花底祝长生。', '清·龚自珍']
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const dataList = [
     value: 'rest/2.0/image-classify/v1/plant',
     content: '欲问相思处,花开花落时',
     poster: '/mp/sil/hua.jpg',
-    desc: ['梅', '墙角数枝梅，', '凌寒独自开。', '遥知不是雪，', '为有暗香来。']
+    desc: ['梅', '墙角数枝梅，', '凌寒独自开。', '遥知不是雪，', '为有暗香来。', '宋·王安石']
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const dataList = [
     value: 'file/2.0/mt/pictrans/v1',
     content: '支持多种语言翻译中文',
     poster: '/mp/sil/fanyi.png',
-    desc: ['沙', '壹沙见世界，', '壹花窥天堂。', '手心握无限，', '须臾纳永恒。']
+    desc: ['沙', '壹沙见世界，', '壹花窥天堂。', '手心握无限，', '须臾纳永恒。', '英·William Blake']
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const dataList = [
     value: 'rest/2.0/image-classify/v1/animal',
     content: '哇好可爱!这是什么动物？',
     poster: '/mp/sil/animal.jpg',
-    desc: ['鹿', '霜落熊升树，', '林空鹿饮溪。', '人家在何许，', '云外一声鸡。']
+    desc: ['鹿', '霜落熊升树，', '林空鹿饮溪。', '人家在何许，', '云外一声鸡。', '宋·梅尧臣']
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const dataList = [
     value: 'rest/2.0/ocr/v1/idcard',
     content: '身份证号码和地址太长啦',
     poster: '/mp/sil/idcard.jpg',
-    desc: ['国', '汉家旌帜满阴山，', '不遣胡儿匹马还。', '愿得此身长报国，', '何须生入玉门关。']
+    desc: ['国', '汉家旌帜满阴山，', '不遣胡儿匹马还。', '愿得此身长报国，', '何须生入玉门关。', '唐·戴叔伦']
   },
   {
     id: 6,
@@ -51,7 +51,7 @@ const dataList = [
     value: 'rest/2.0/image-classify/v1/classify/ingredient',
     content: '好吃的水果必须拥有名字',
     poster: '/mp/sil/fruit.jpg',
-    desc: ['荔', '长安回望绣成堆，', '山顶千门次第开。', '一骑红尘妃子笑，', '无人知是荔枝来。']
+    desc: ['荔', '长安回望绣成堆，', '山顶千门次第开。', '一骑红尘妃子笑，', '无人知是荔枝来。', '唐·杜牧']
   },
   {
     id: 7,
@@ -60,7 +60,7 @@ const dataList = [
     value: 'rest/2.0/ocr/v1/bankcard',
     content: '银行卡信息快速识别',
     poster: '/mp/sil/bankcard.jpg',
-    desc: ['金', '人生得意须尽欢，', '莫使金樽空对月。', '天生我材必有用，', '千金散尽还复来。']
+    desc: ['金', '人生得意须尽欢，', '莫使金樽空对月。', '天生我材必有用，', '千金散尽还复来。', '唐·李白']
   },
   {
     id: 8,
@@ -69,7 +69,7 @@ const dataList = [
     value: 'rest/2.0/image-classify/v1/currency',
     content: '这是津巴布韦不是美元!',
     poster: '/mp/sil/money.jpg',
-    desc: ['钱', '陈王昔时宴平乐，', '斗酒十千恣欢谑。', '主人何为言少钱，', '径须沽取对君酌。']
+    desc: ['钱', '陈王昔时宴平乐，', '斗酒十千恣欢谑。', '主人何为言少钱，', '径须沽取对君酌。', '唐·李白']
   },
 
   {
@@ -98,7 +98,7 @@ const dataList = [
     value: 'rest/2.0/ocr/v1/business_license',
     content: '字太多了实在不想抄了',
     poster: '/mp/sil/zhao.jpg',
-    desc: ['杏', '燕子归来杏子花，', '红桥低影绿池斜。', '清明时节斜阳里，', '个个行人问酒家。']
+    desc: ['杏', '燕子归来杏子花，', '红桥低影绿池斜。', '清明时节斜阳里，', '个个行人问酒家。', '明·唐寅']
   },
   {
     id: 12,
@@ -107,7 +107,7 @@ const dataList = [
     value: 'rest/2.0/image-classify/v2/advanced_general',
     content: '不知道分类？统统交给我!',
     poster: '/mp/sil/every.jpg',
-    desc: ['庐', '日照香炉生紫烟，', '遥看瀑布挂前川。', '飞流直下三千尺，', '疑是银河落九天。']
+    desc: ['庐', '日照香炉生紫烟，', '遥看瀑布挂前川。', '飞流直下三千尺，', '疑是银河落九天。', '唐·李白']
   },
   {
     id: 13,
@@ -116,7 +116,7 @@ const dataList = [
     value: 'rest/2.0/ocr/v1/handwriting',
     content: '字迹潦草无法辨认',
     poster: '/mp/sil/hand.jpg',
-    desc: ['字', '兰亭茧纸入昭陵，', '世间遗迹犹龙腾。', '颜公变法出新意，', '细筋入骨如秋鹰。']
+    desc: ['字', '兰亭茧纸入昭陵，', '世间遗迹犹龙腾。', '颜公变法出新意，', '细筋入骨如秋鹰。', '宋·苏轼']
   },
   {
     id: 14,
@@ -125,7 +125,7 @@ const dataList = [
     value: 'rest/2.0/ocr/v1/accurate_basic',
     content: '图文识别（高精度）',
     poster: '/mp/sil/tuwen.jpg',
-    desc: ['文', '燕兰识字尚聪明，', '难遣当筵迟暮情。', '且莫空山听雨去，', '有人花底祝长生。']
+    desc: ['文', '燕兰识字尚聪明，', '难遣当筵迟暮情。', '且莫空山听雨去，', '有人花底祝长生。', '清·龚自珍']
   }
 ];
 

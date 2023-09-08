@@ -243,13 +243,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 36rpx;
+    font-size: 30rpx;
     color: #ff5f68;
     .icon {
       //width: 46rpx;
       //height: 36rpx;
 
-      font-size: 45rpx;
+      font-size: 35rpx;
       transform: rotate(180deg);
     }
   }
