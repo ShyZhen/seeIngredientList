@@ -8,7 +8,7 @@
     </view>
 
     <!--  内容  -->
-    <view class="content" :style="{paddingTop: searchInput.top + 52 + 'px'}">
+    <view v-if="!showResult" class="content" :style="{paddingTop: searchInput.top + 52 + 'px'}">
       <!--  背景图  -->
       <view class="card">
         <image :src="cdnUrl+item.poster" mode="aspectFill" lazy-load=true class="card-img"></image>
@@ -40,6 +40,83 @@
           @getImg="getCropImg"
       ></gmy-img-cropper>
     </view>
+
+    <view>
+      <view v-if="wordsArr.length">
+        <view v-for="(item, index) in wordsArr" :key="index" >
+          <view @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
+        </view>
+      </view>
+
+      <view v-if="wordTrans.length">
+        <view v-for="(item, index) in wordTrans" :key="index" >
+          <view>{{item.src}}:</view><view @tap.stop="this.$copyThat(item.dst)">{{item.dst}}</view>
+        </view>
+      </view>
+
+      <view v-if="wordIDCard">
+        <view v-for="(item, index) in wordIDCard" :key="index" >
+          <view>{{index}} : </view><view @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
+        </view>
+      </view>
+
+      <view v-if="wordBank.bank_card_number">
+        <view>卡号：</view><view @tap.stop="this.$copyThat(wordBank.bank_card_number)">{{wordBank.bank_card_number}}</view>
+        <view>类型：</view><view>{{wordBank.bank_card_type}}</view>
+        <view>开户银行：</view><view @tap.stop="this.$copyThat(wordBank.bank_name)">{{wordBank.bank_name}}</view>
+        <view>开户人：</view><view>{{wordBank.holder_name}}</view>
+        <view>有效期：</view><view>{{wordBank.valid_date}}</view>
+      </view>
+
+      <view v-if="wordBusiness">
+        <view v-for="(item, index) in wordBusiness" :key="index" >
+          <view>{{index}} : </view><view @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
+        </view>
+      </view>
+
+      <!--   图识别    -->
+      <view v-if="imagePlant.length">
+        <view @tap.stop="this.$copyThat(imagePlant[0].name)">
+          {{imagePlant[0].name}}
+        </view>
+        <view v-if="imagePlant[0].baike_info">
+          <view>
+            {{imagePlant[0].baike_info.description}}
+          </view>
+          <view>
+            <img :src="imagePlant[0].baike_info.image_url" alt=""/>
+          </view>
+        </view>
+      </view>
+
+      <view v-if="imageIngredient.length">
+        <view>
+          {{imageIngredient[0].name}}
+        </view>
+      </view>
+
+      <view v-if="imageCurrency.currencyCode">
+        <view v-if="imageCurrency.hasdetail">货币代码：{{imageCurrency.currencyCode}}</view>
+        <view>货币名称：{{imageCurrency.currencyName}}</view>
+        <view v-if="imageCurrency.hasdetail">货币面值：{{imageCurrency.currencyDenomination}}</view>
+        <view v-if="imageCurrency.hasdetail">货币年份：{{imageCurrency.year}}</view>
+      </view>
+
+      <view v-if="imageGeneral.length">
+        <view>
+          {{imageGeneral[0].keyword}}
+        </view>
+        <view v-if="imageGeneral[0].baike_info.description">
+          <view>
+            {{imageGeneral[0].baike_info.description}}
+          </view>
+          <view>
+            <img :src="imageGeneral[0].baike_info.image_url" alt=""/>
+          </view>
+        </view>
+      </view>
+    </view>
+
   </view>
 </template>
 
@@ -52,7 +129,7 @@ import baiduData from "@/utils/baiduData";
 export default {
   data() {
     return {
-
+      showResult: false,
       pageOpacity: 0,
       headerHeight: 0,
       searchInput: {
@@ -72,6 +149,23 @@ export default {
         value: '',
         desc: '',
       },
+
+      // 展示结果字段
+      wordsArr: [],
+      wordIDCard: {},
+      wordBank: {
+        bank_card_number: '',
+        bank_card_type: '',
+        bank_name: '',
+        holder_name: '',
+        valid_date: '',
+      },
+      wordBusiness: {},
+      wordTrans: [],
+      imagePlant: [],
+      imageIngredient: [],
+      imageCurrency: [],
+      imageGeneral: [],
     };
   },
   components: {
@@ -117,8 +211,9 @@ export default {
     },
 
     // 剪裁完成，返回截取图片的临时路径
-    getCropImg: (tempFilePath)=>{
+    getCropImg: function (tempFilePath) {
       console.log("父页面拿到了剪裁后的图片临时地址", tempFilePath);
+      console.log(this.item)
       if (this.item.value === 'file/2.0/mt/pictrans/v1') {
         getImgInfoMultipart(tempFilePath, this.item.value).then(res => {
           console.log('回调res', res)
@@ -166,6 +261,7 @@ export default {
           this.imageGeneral = data.result
           break
       }
+      this.showResult = true
     },
   }
 };
