@@ -344,7 +344,7 @@ export default {
     .icon {
       //width: 46rpx;
       //height: 36rpx;
-
+      display: flex;
       font-size: 35rpx;
       transform: rotate(180deg);
     }

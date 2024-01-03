@@ -2,7 +2,7 @@
 	"pages": [{
 		"path": "pages/index/navbar",
 		"style" : {
-			"navigationBarTitleText": "图像识别大师"
+			"navigationBarTitleText": "AI识图大师"
 		}
 	},{
 		"path": "pages/index/index",
@@ -19,7 +19,7 @@
 		"path": "pages/index/detail",
 		"style" : {
 			"navigationStyle": "custom",
-			"navigationBarTitleText": "图像识别大师"
+			"navigationBarTitleText": "AI识图大师"
 		}
 	}
 //	,{

@@ -24,7 +24,7 @@ const dataList = [
     value: 'file/2.0/mt/pictrans/v1',
     content: '支持多种语言翻译中文',
     poster: '/mp/sil/fanyi.png',
-    desc: ['沙', '壹沙见世界，', '壹花窥天堂。', '手心握无限，', '须臾纳永恒。', '英·William Blake']
+    desc: ['沙', '壹沙见世界，', '壹花窥天堂。', '手心握无限，', '须臾纳永恒。', '英·威廉姆']
   },
   {
     id: 4,
