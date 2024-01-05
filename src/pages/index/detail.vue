@@ -463,7 +463,7 @@ export default {
   width: 100%;
   background: linear-gradient(180deg, #fff8dd 0%, #ffefeb 100%);
   overflow: auto;
-  padding: 0 16px;
+  padding: 30px 16px;
   box-sizing: border-box;
   font-size: x-large;
 }
