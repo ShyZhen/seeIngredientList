@@ -175,8 +175,11 @@ page {
   padding: 20rpx;
   justify-content: flex-start;
   align-items: flex-start;
-  display: flex;
+  //display: flex;
   flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px 10px;
   .gangitem{
     width: 334rpx;
     height: 340rpx;
