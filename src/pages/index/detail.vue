@@ -41,77 +41,146 @@
       ></gmy-img-cropper>
     </view>
 
-    <view>
+    <!--  展示结果页  -->
+    <view v-if="showResult" class="content-detail" :style="{paddingTop: searchInput.top + 52 + 'px'}">
       <view v-if="wordsArr.length">
         <view v-for="(item, index) in wordsArr" :key="index" >
-          <view @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
+          <view class="border" :class="'tr-color-' + index % 2" @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
         </view>
       </view>
 
       <view v-if="wordTrans.length">
         <view v-for="(item, index) in wordTrans" :key="index" >
-          <view>{{item.src}}:</view><view @tap.stop="this.$copyThat(item.dst)">{{item.dst}}</view>
+          <view class="border" :class="'tr-color-' + index % 2" @tap.stop="this.$copyThat(item.src)">{{item.src}}</view>
+          <view class="border" :class="'tr-color-' + index % 2" @tap.stop="this.$copyThat(item.dst)">{{item.dst}}</view>
         </view>
       </view>
 
-      <view v-if="wordIDCard">
-        <view v-for="(item, index) in wordIDCard" :key="index" >
-          <view>{{index}} : </view><view @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
+      <view v-if="wordIDCard && wordIDCardLogid">
+        <view v-if="wordIDCardIsset > 0">
+          <view v-for="(item, index, i) in wordIDCard" :key="i" >
+            <view class="border" :class="'tr-color-' + i % 2" @tap.stop="this.$copyThat(item.words)">
+              <view>{{index}} : </view><view>{{item.words}}</view>
+            </view>
+          </view>
+        </view>
+        <view v-else>
+          <view class="padding-sm">
+            解析失败，请上传正确格式身份证
+          </view>
         </view>
       </view>
 
-      <view v-if="wordBank.bank_card_number">
-        <view>卡号：</view><view @tap.stop="this.$copyThat(wordBank.bank_card_number)">{{wordBank.bank_card_number}}</view>
-        <view>类型：</view><view>{{wordBank.bank_card_type}}</view>
-        <view>开户银行：</view><view @tap.stop="this.$copyThat(wordBank.bank_name)">{{wordBank.bank_name}}</view>
-        <view>开户人：</view><view>{{wordBank.holder_name}}</view>
-        <view>有效期：</view><view>{{wordBank.valid_date}}</view>
+      <view v-if="wordBank.valid_date">
+        <view v-if="wordBank.valid_date !== 'NO VALID'">
+          <view class="border" :class="'tr-color-' + 0">
+            <view>卡号：</view><view @tap.stop="this.$copyThat(wordBank.bank_card_number)">{{wordBank.bank_card_number}}</view>
+          </view>
+          <view class="border" :class="'tr-color-' + 1">
+            <view>类型：</view><view>{{wordBank.bank_card_type}}</view>
+          </view>
+          <view class="border" :class="'tr-color-' + 0">
+            <view>开户银行：</view><view @tap.stop="this.$copyThat(wordBank.bank_name)">{{wordBank.bank_name}}</view>
+          </view>
+          <view class="border" :class="'tr-color-' + 1">
+            <view>开户人：</view><view>{{wordBank.holder_name}}</view>
+          </view>
+          <view class="border" :class="'tr-color-' + 0">
+            <view>有效期：</view><view>{{wordBank.valid_date}}</view>
+          </view>
+        </view>
+        <view v-else>
+          <view class="padding-sm">
+            解析失败，请上传正确格式银行卡
+          </view>
+        </view>
       </view>
 
-      <view v-if="wordBusiness">
-        <view v-for="(item, index) in wordBusiness" :key="index" >
-          <view>{{index}} : </view><view @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
+      <view v-if="wordBusinessLogid">
+        <view v-if="Object.keys(wordBusiness).length">
+          <view v-for="(item, index, i) in wordBusiness" :key="index" >
+            <view class="border" :class="'tr-color-' + i % 2" @tap.stop="this.$copyThat(item.words)">
+              <view>{{index}} : </view><view>{{item.words}}</view>
+            </view>
+          </view>
+        </view>
+        <view v-else>
+          <view class="padding-sm">
+            解析失败，请上传正确格式营业执照
+          </view>
+        </view>
+      </view>
+
+      <view v-if="wordLogid">
+        <view v-for="(item, index) in wordHand" :key="index" >
+          <view class="border" :class="'tr-color-' + index % 2" @tap.stop="this.$copyThat(item.words)">{{item.words}}</view>
         </view>
       </view>
 
       <!--   图识别    -->
-      <view v-if="imagePlant.length">
-        <view @tap.stop="this.$copyThat(imagePlant[0].name)">
+      <view v-if="imagePlant.length" class="text-center">
+        <view class="padding-sm" @tap.stop="this.$copyThat(imagePlant[0].name)">
           {{imagePlant[0].name}}
         </view>
-        <view v-if="imagePlant[0].baike_info">
-          <view>
+        <view v-if="imagePlant[0].baike_info && imagePlant[0].baike_info.image_url">
+          <view class="">
+            <img :src="imagePlant[0].baike_info.image_url" alt=""/>
+          </view>
+          <view class="padding-sm">
             {{imagePlant[0].baike_info.description}}
           </view>
-          <view>
-            <img :src="imagePlant[0].baike_info.image_url" alt=""/>
+        </view>
+        <view v-else>
+          <view class="padding-sm">
+            没有示例图片
           </view>
         </view>
       </view>
 
-      <view v-if="imageIngredient.length">
-        <view>
+      <view v-if="imageIngredient.length" class="text-center">
+        <view class="padding-sm" @tap.stop="this.$copyThat(imageIngredient[0].name)">
           {{imageIngredient[0].name}}
         </view>
       </view>
 
-      <view v-if="imageCurrency.currencyCode">
-        <view v-if="imageCurrency.hasdetail">货币代码：{{imageCurrency.currencyCode}}</view>
-        <view>货币名称：{{imageCurrency.currencyName}}</view>
-        <view v-if="imageCurrency.hasdetail">货币面值：{{imageCurrency.currencyDenomination}}</view>
-        <view v-if="imageCurrency.hasdetail">货币年份：{{imageCurrency.year}}</view>
+      <view v-if="imageCurrencyLogid">
+        <view v-if="imageCurrency.currencyName">
+          <view v-if="imageCurrency.hasdetail" class="border" :class="'tr-color-' + 0">
+            货币代码：{{imageCurrency.currencyCode}}
+          </view>
+          <view class="border" :class="'tr-color-' + 1">
+            货币名称：{{imageCurrency.currencyName}}
+          </view>
+          <view v-if="imageCurrency.hasdetail" class="border" :class="'tr-color-' + 0">
+            货币面值：{{imageCurrency.currencyDenomination}}
+          </view>
+          <view v-if="imageCurrency.hasdetail" class="border" :class="'tr-color-' + 1">
+            货币年份：{{imageCurrency.year}}
+          </view>
+        </view>
+        <view v-else>
+          <view class="padding-sm">
+            解析失败，请上传正确格式钱币
+          </view>
+        </view>
+
       </view>
 
-      <view v-if="imageGeneral.length">
-        <view>
+      <view v-if="imageGeneral.length" class="text-center">
+        <view class="padding-sm" @tap.stop="this.$copyThat(imageGeneral[0].keyword)">
           {{imageGeneral[0].keyword}}
         </view>
         <view v-if="imageGeneral[0].baike_info.description">
           <view>
+            <img :src="imageGeneral[0].baike_info.image_url" alt=""/>
+          </view>
+          <view class="padding-sm">
             {{imageGeneral[0].baike_info.description}}
           </view>
-          <view>
-            <img :src="imageGeneral[0].baike_info.image_url" alt=""/>
+        </view>
+        <view v-else>
+          <view class="padding-sm">
+            暂无其他详细介绍
           </view>
         </view>
       </view>
@@ -153,6 +222,8 @@ export default {
       // 展示结果字段
       wordsArr: [],
       wordIDCard: {},
+      wordIDCardIsset: 0,
+      wordIDCardLogid: 0,
       wordBank: {
         bank_card_number: '',
         bank_card_type: '',
@@ -161,11 +232,15 @@ export default {
         valid_date: '',
       },
       wordBusiness: {},
+      wordBusinessLogid: 0,
       wordTrans: [],
       imagePlant: [],
       imageIngredient: [],
       imageCurrency: [],
+      imageCurrencyLogid: 0,
       imageGeneral: [],
+      wordLogid: 0,
+      wordHand: [],
     };
   },
   components: {
@@ -238,12 +313,15 @@ export default {
           break
         case 'rest/2.0/ocr/v1/idcard':  // 身份证
           this.wordIDCard = data.words_result
+          this.wordIDCardIsset = data.words_result_num
+          this.wordIDCardLogid = data.log_id
           break
         case 'rest/2.0/ocr/v1/bankcard':  // 银行卡
           this.wordBank = data.result
           break
         case 'rest/2.0/ocr/v1/business_license':  // 营业执照
           this.wordBusiness = data.words_result
+          this.wordBusinessLogid = data.log_id
           break
         case 'rest/2.0/image-classify/v1/plant':  // 花草植物
           this.imagePlant = data.result
@@ -256,9 +334,17 @@ export default {
           break
         case 'rest/2.0/image-classify/v1/currency':  // 货币钱币
           this.imageCurrency = data.result
+          this.imageCurrencyLogid = data.log_id
           break
         case 'rest/2.0/image-classify/v2/advanced_general':  // 通用
           this.imageGeneral = data.result
+          break
+        case 'rest/2.0/ocr/v1/handwriting':  // 手写
+          this.wordHand = data.words_result
+          this.wordLogid = data.log_id
+          break
+        case 'rest/2.0/ocr/v1/accurate_basic':  // 高精度
+          this.wordsArr = data.words_result
           break
       }
       this.showResult = true
@@ -371,4 +457,27 @@ export default {
     }
   }
 }
+
+.content-detail {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(180deg, #fff8dd 0%, #ffefeb 100%);
+  overflow: auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  font-size: x-large;
+}
+.border {
+  padding: 20px 10px 20px 10px;
+  border: gainsboro 1px solid;
+}
+/* 定义余数为 0 的行颜色 */
+.tr-color-0 {
+  background: #f0f0f0;
+}
+/* 定义余数为 1 的行颜色 */
+.tr-color-1 {
+  background: #fff;
+}
+
 </style>
